@@ -19,7 +19,7 @@
 * **A random ideas box is given to make sure your mind does not wander while working**
 * **A board to draw any ideas that come to mind while working**
 
-### [⏲️ Pomo Timer](PomoTimer.swift)
+### [⏲️ Pomo Timer](The%20Drawing%20Board/PomoTimer.swift)
 <hr>
 
 * **Stopwatch to measure how long you are working and studying**
@@ -28,7 +28,7 @@
 > [!NOTE]
 > 🔔 *Will send notifications/alarms to you, alerting you when a pomo or break is completed*
 
-### [📒 Planner](Notebook.swift)
+### [📒 Planner](The%20Drawing%20Board/Notebook.swift)
 <hr>
 
 * **Add assignment titles, descriptions, subjects, and change the due date if necessary. (Editable afterward as well)**
@@ -38,7 +38,7 @@
 > [!NOTE]
 > 💾 *Data saves on the device*
 
-### [⚙️ Settings](Settings.swift)
+### [⚙️ Settings](The%20Drawing%20Board/Settings.swift)
 <hr>
 
 * **Change organization, timing, and color throughout the app**
