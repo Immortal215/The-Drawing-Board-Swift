@@ -2,12 +2,12 @@
 ### An app built to add structure into our lives, keeping focus at the forefront.
 
 > [!WARNING]
-> ⚠️ *Built and optimized primarily for iPad Gen 10*
+> ⚠️ *Built and optimized primarily for iPad Gen 10 but does work on Mac's well*
 
 ## 🚀 Installation 
 
 > [!IMPORTANT]
-> 🛠️ *Use Playgrounds or an Xcode project folder to run on your home device*
+> 🛠️ *Use Playgrounds or an Xcode project folder to run on your home device, will soon be available on the app store*
 
 ## ✨ Features 
 
