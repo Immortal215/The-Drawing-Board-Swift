@@ -67,17 +67,21 @@ struct TimerView: View {
     
     @State var progressTime = 0
     @State var myTimer: Timer?
-    
+
     var body: some View {
         Text("\(minutes):\(seconds)")
             .font(.system(size: 100))
         
         Button("Start") {
             myTimer = timer
+
+
+
         } 
     }
 }
 ```
+https://github.com/user-attachments/assets/876f7a0b-70ec-46e9-b4b1-4d8ec1de45b8
 
 Here's an example snippet of how you might configure a simple note-adding effect in SwiftUI:
 
@@ -104,8 +108,9 @@ struct NoteView: View {
     }
 }
 ```
+https://github.com/user-attachments/assets/17f6f7c2-2154-4ba0-9974-7ba4438fe573
 
-And finally, here's an example snippet of how you might make a timer wheel:
+And finally, here's an example snippet of how you might make a timer wheel, unlike on mac's with progressViews, you need to use two circle to make this :
 
 ```swift
 struct TimerWheel: View {
@@ -157,7 +162,13 @@ struct TimerWheel: View {
             } else {
                 progress += 0.01
             }
+
         }
     }
 }
 ```
+
+https://github.com/user-attachments/assets/b9ee4cb7-1877-47da-9fc0-9fe12bb13bdd
+
+
+
