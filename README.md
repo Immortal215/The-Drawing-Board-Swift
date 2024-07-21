@@ -11,7 +11,7 @@
 
 ## ✨ Features 
 
-### [🏠 Home Screen](Homepage.swift)
+### [🏠 Home Screen](https://github.com/Immortal215/The-Drawing-Board-Swift/blob/main/The%20Drawing%20Board/Homepage.swift)
 <hr>
 
 * **Shows the most urgent assignments in the list chosen! (3 most urgent)**
