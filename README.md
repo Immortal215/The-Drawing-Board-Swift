@@ -11,7 +11,7 @@
 
 ## ✨ Features 
 
-### [🏠 Home Screen](The-Drawing-Board/Homepage.swift)
+### [🏠 Home Screen](The%20Drawing%20Board/Homepage.swift)
 <hr>
 
 * **Shows the most urgent assignments in the list chosen! (3 most urgent)**
