@@ -315,9 +315,11 @@ struct Pomo: View {
         .onChange(of: breakTime) {
             myTimerPomo?.invalidate()
         }
-        .onChange(of: breakText) {
-            scheduleTimeBasedNotification(title: "\(breakText ? "Break" : "Pomo") Time!", body: "\(breakText ? "Pomo" : "Break") Completed!", sound: UNNotificationSound(named: UNNotificationSoundName(rawValue: "myalarm.mp3")))
-        }
+        
+        // test without
+//        .onChange(of: breakText) {
+//            scheduleTimeBasedNotification(title: "\(breakText ? "Break" : "Pomo") Time!", body: "\(breakText ? "Pomo" : "Break") Completed!", sound: UNNotificationSound(named: UNNotificationSoundName(rawValue: "myalarm.mp3")))
+//        }
         
     }
 }
