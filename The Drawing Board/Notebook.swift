@@ -104,6 +104,10 @@ struct Notebook: View {
                             // make assignment
                             .sheet( isPresented: $showAlert) {
                                 VStack {
+                                    Text("Create a new task!")
+                                        .font(.largeTitle)
+                                        .fontWeight(.black)
+                                    
                                     TextField("Title", text: $name)
                                         .foregroundStyle(Color(hex: titleColor == "#000000" ? "#FFFFFF" : titleColor))
                                         .textFieldStyle(OutlinedIconTextFieldStyle(icon: Image(systemName: "scroll"), iconColor: Color(hex: titleColor)))

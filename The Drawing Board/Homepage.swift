@@ -414,7 +414,7 @@ struct Homepage: View {
                                                 .foregroundStyle(currentColor)
                                                 .opacity(0.3)
                                                 .onChange(of: breakText) {
-                                                    currentColor = $0 ? .green : .pink
+                                                    currentColor = breakText ? .green : .pink
                                                 }
                                                 .frame(width:100, height:100)
                                             
@@ -710,14 +710,6 @@ struct Homepage: View {
             scheduleTimeBasedNotification(title: "\(breakText ? "Break" : "Pomo") Time!", body: "\(breakText ? "Pomo" : "Break") Completed!", sound: UNNotificationSound(named: UNNotificationSoundName(rawValue: "myalarm.mp3")))
         }
         
-    }
-}
-
-extension UserDefaults {
-    static func resetDefaults() {
-        if let bundleID = Bundle.main.bundleIdentifier {
-            UserDefaults.standard.removePersistentDomain(forName: bundleID)
-        }
     }
 }
 
