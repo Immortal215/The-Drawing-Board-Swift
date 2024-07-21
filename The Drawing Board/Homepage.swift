@@ -34,6 +34,7 @@ struct Homepage: View {
     @State var subject = ""
     @State var date = ""
     @AppStorage("thoughts") var thoughtText = ""
+    @State var lastValue = ""
     
     @State var showAlert = false
     @State var showDelete = false
@@ -49,7 +50,7 @@ struct Homepage: View {
     @State var foregroundStyle = Color.green
     @State var thoughtsOpened = false
     @AppStorage("selectedTab") var selectedTab = 1
-
+    
     
     
     
@@ -66,7 +67,7 @@ struct Homepage: View {
     @State var currentLine: Line = Line(points: [])
     @AppStorage("chosenWidth") var chosenWidth = 10.0
     @State var drawOpened = false
-
+    
     
     var hours: String {
         let time = (progressTime % 3600) / 3600
@@ -143,17 +144,17 @@ struct Homepage: View {
                                 Text(caughtUp ? "Add Objectives!" : "")
                                     .font(.title)
                                     .fixedSize()
-    
+                                
                                 Image(systemName: "arrow.up.forward.app")
                                     .resizable()
                                     .frame(width: caughtUp ? 20 : 0, height: caughtUp ? 20 : 0)
                             }
-                         
-
+                            
+                            
                         }
                         .padding(caughtUp ? 30 : 0)
                         
-                        
+                        // assignments
                         if loadedData && bigDic[currentTab]?["description"]?.isEmpty != true && caughtUp == false {
                             
                             ScrollView {
@@ -261,8 +262,8 @@ struct Homepage: View {
                                                                     .saturation(1.8)
                                                             }
                                                             .font(.title2)
-                                                         //   .frame(maxWidth: screenWidth/4)
-
+                                                        //   .frame(maxWidth: screenWidth/4)
+                                                        
                                                         if subjects[index] != " " {
                                                             //  Spacer(minLength: 0)
                                                             
@@ -277,8 +278,8 @@ struct Homepage: View {
                                                                     // .saturation()
                                                                 }
                                                                 .font(.title2)
-                                                               // .frame(maxWidth: screenWidth/4)
-
+                                                            // .frame(maxWidth: screenWidth/4)
+                                                            
                                                             
                                                         }
                                                         
@@ -299,7 +300,7 @@ struct Homepage: View {
                                                                         .saturation(1.8)
                                                                 }
                                                                 .frame(maxWidth: screenWidth/3, maxHeight: 100)
-                                                                
+                                                            
                                                             
                                                             
                                                         }
@@ -364,72 +365,73 @@ struct Homepage: View {
                                 Text(progressTimePomo == pomoTime && progressTime == 0 ? "No Timers Set!" : "")
                                     .font(.title)
                                     .fixedSize()
-    
+                                
                                 Image(systemName: "arrow.up.forward.app")
                                     .resizable()
                                     .frame(width: progressTimePomo == pomoTime && progressTime == 0 ? 20 : 0, height: progressTimePomo == pomoTime && progressTime == 0 ? 20 : 0)
                             }
-                         
-
+                            
+                            
                         }
                         
-                            .animation(.snappy(duration: 0.3, extraBounce: 0.3))
+                        .animation(.snappy(duration: 0.3, extraBounce: 0.3))
                         
                         VStack {
-                                ScrollView {
-                                    if progressTime != 0 {
-                                        HStack {
-                                            Text("Stop Watch")
-                                            
-                                            Divider()
-                                            
-                                            Text("\(hours):\(minutes):\(seconds)")
-                                            
-                                        }
-                                        .font(.system(size: 25))
-                                        .fixedSize()
+                            ScrollView {
+                                if progressTime != 0 {
+                                    HStack {
+                                        Text("Stop Watch")
+                                        
+                                        Divider()
+                                        
+                                        Text("\(hours):\(minutes):\(seconds)")
+                                        
                                     }
-                                    if progressTimePomo != pomoTime {
-                                        HStack {
-                                            Text("\(breakText ? "Break" : "Pomodoro") Timer")
-                                                .fixedSize()
+                                    .font(.system(size: 25))
+                                    .fixedSize()
+                                }
+                                if progressTimePomo != pomoTime {
+                                    HStack {
+                                        Text("\(breakText ? "Break" : "Pomodoro") Timer")
+                                            .fixedSize()
+                                            .padding()
+                                        
+                                        
+                                        ZStack {
+                                            
+                                            RoundedRectangle(cornerRadius: CGFloat(cornerRadius/6))
+                                                .stroke(lineWidth: 10)
+                                                .opacity(0.3)
+                                                .foregroundColor(.gray)
+                                                .animation(.linear(duration: 1))
+                                                .frame(width:100, height:100)
+                                            
+                                            RoundedRectangle(cornerRadius: CGFloat(cornerRadius/6))
+                                                .trim(from: 0.0, to: CGFloat(breakText ? Double(progressTimePomo)/Double(breakTime) : Double(progressTimePomo)/Double(pomoTime)))
+                                                .stroke(style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
+                                                .rotationEffect(Angle(degrees: -90.0))
+                                                .animation(.linear(duration: 1))
+                                                .foregroundStyle(currentColor)
+                                                .opacity(0.3)
+                                                .onChange(of: breakText) {
+                                                    currentColor = $0 ? .green : .pink
+                                                }
+                                                .frame(width:100, height:100)
+                                            
+                                            Text("\(minutesPomo):\(secondsPomo)")
+                                                .frame(width:100, height:50)
                                                 .padding()
                                             
                                             
-                                            ZStack {
-                                                
-                                                RoundedRectangle(cornerRadius: CGFloat(cornerRadius/6))
-                                                    .stroke(lineWidth: 10)
-                                                    .opacity(0.3)
-                                                    .foregroundColor(.gray)
-                                                    .animation(.linear(duration: 1))
-                                                    .frame(width:100, height:100)
-                                                
-                                                RoundedRectangle(cornerRadius: CGFloat(cornerRadius/6))
-                                                    .trim(from: 0.0, to: CGFloat(breakText ? Double(progressTimePomo)/Double(breakTime) : Double(progressTimePomo)/Double(pomoTime)))
-                                                    .stroke(style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
-                                                    .rotationEffect(Angle(degrees: -90.0))
-                                                    .animation(.linear(duration: 1))
-                                                    .foregroundStyle(currentColor)
-                                                    .opacity(0.3)
-                                                    .onChange(of: breakText) {
-                                                        currentColor = $0 ? .green : .pink
-                                                    }
-                                                    .frame(width:100, height:100)
-                                                
-                                                Text("\(minutesPomo):\(secondsPomo)")
-                                                    .frame(width:100, height:50)
-                                                    .padding()
-                                                
-                                                
-                                            }
-                                            .padding()
-                                            
                                         }
-                                        .font(.system(size:25))
+                                        .padding()
+                                        
                                     }
-                                    
-                                    // thought text
+                                    .font(.system(size:25))
+                                }
+                                
+                                // thought text
+                                VStack {
                                     HStack {
                                         
                                         Button {
@@ -454,7 +456,7 @@ struct Homepage: View {
                                             }
                                         }
                                         .padding()
-                                        .scaleEffect(thoughtsOpened ? 1.0 : 0 )
+                                        .scaleEffect( thoughtsOpened ? 1.0 : 0 )
                                         .frame(maxWidth: thoughtsOpened ? .infinity : 0)
                                         .fixedSize()
                                         
@@ -469,111 +471,123 @@ struct Homepage: View {
                                                 .overlay {
                                                     RoundedRectangle(cornerRadius: 8, style: .continuous)
                                                         .stroke(Color(UIColor.systemGray4), lineWidth: 2)
-                                                
+                                                    
                                                 }
                                                 .multilineTextAlignment(.center)
                                                 .foregroundStyle(.white)
-                                                .frame(maxWidth: screenWidth/2.3, maxHeight: screenHeight/7)
+                                                .frame(maxWidth: screenWidth/3, maxHeight: screenHeight/7)
                                                 .scrollContentBackground(.hidden)
                                                 .font(.title3)
-                                                .padding()  
+                                                .padding()
                                                 .onChange(of: thoughtText) {
                                                     if thoughtText != "" {
                                                         thoughtsOpened = true
+                                                    } else {
+                                                        thoughtsOpened = false
+                                                    }
+                                                    
+                                                    if thoughtText.last == "\n" && lastValue != "-" {
+                                                        thoughtText += "- "
+                                                    }
+                                                    
+                                                    // needed to prevent a nil which crash
+                                                    if let lastChar = thoughtText.last {
+                                                        lastValue = String(lastChar)
+                                                    } else {
+                                                        lastValue = ""
                                                     }
                                                 }
-//                                                .onChange(of: thoughtText) { newValue in
-//                                                                    if let lastCharacter = newValue.last, lastCharacter == "\n" {
-//
-//                                                                        thoughtText = String(newValue) + "-"
-//                                                                        
-//                                                                    }
-//                                                                }
+                                                .onTapGesture {
+                                                    if thoughtText == "" {
+                                                        thoughtText = "- "
+                                                    }
+                                                }
                                         }
-                                    }
-                                    
-                                    // draw
-                                    VStack {
-                                        HStack {
-                                            Button {
-                                                lines = []
-                                                drawOpened = false
-                                            } label: {
-                                                ZStack {
-                                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                        .stroke(Color(UIColor.systemGray4), lineWidth: 2)
-                                                        .frame(width: 30, height: 38)
-                                                        .background(.clear, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                                                    
-                                                    
-                                                    Image(systemName: "archivebox")
-                                                        .foregroundColor(.white)
-                                                        .shadow(color: .gray, radius: 5, x: 0, y: 0)
-                                                }
-                                            }
-                                            .padding()
-                                            .scaleEffect( drawOpened ? 1.0 : 0 )
-                                            .frame(maxWidth: drawOpened ? .infinity : 0)
-                                            .fixedSize()
-
-                                            ZStack {
-                                                
-                                                if lines.isEmpty {
-                                                    Text("Draw Ideas While Working!")
-                                                        .foregroundColor(.gray)
-                                                        .font(.title3)
-                                                }
-                                                
-                                                Canvas { context, size in
-                                                    for line in lines {
-                                                        var path = Path()
-                                                        path.addLines(line.points)
-                                                        context.stroke(path, with: .color(line.color), lineWidth: chosenWidth)
-                                                    }
-                                                    
-                                                    // Draw the current line
-                                                    var currentPath = Path()
-                                                    currentPath.addLines(currentLine.points)
-                                                    context.stroke(currentPath, with: .color(currentLine.color), lineWidth: chosenWidth)
-                                                }
-                                             
-                                                .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
-                                                    .onChanged { value in
-                                                        let newPoint = value.location
-                                                        currentLine.points.append(newPoint)
-                                                        drawOpened = true
-                                                    }
-                                                    .onEnded { value in
-                                                        lines.append(currentLine)
-                                                        currentLine = Line(points: [])
-                                                    }
-                                                )
-                                            
-                                                .frame(width: screenWidth/3, height: screenHeight/3)
-                                                .overlay {
-                                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                        .stroke(Color(UIColor.systemGray4), lineWidth: 2)
-                                                    
-                                                }
-                                                
-                                            }
-                                            
-                                        }
-                                
-                                        VStack {
-                                                Text("Line Width: \(chosenWidth, specifier: "%.1f")")
-                                                    .font(.headline)
-
-                                                HStack {
-                                                    Text("0")
-                                                    Slider(value: $chosenWidth, in: 5...25, step: 5)
-                                                    Text("25")
-                                                }
-                                                .frame(width: screenWidth/3)
-                                            }
-                                        .padding()
                                     }
                                 }
+                                
+                                // draw
+                                VStack {
+                                    HStack {
+                                        Button {
+                                            lines = []
+                                            drawOpened = false
+                                        } label: {
+                                            ZStack {
+                                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                                    .stroke(Color(UIColor.systemGray4), lineWidth: 2)
+                                                    .frame(width: 30, height: 38)
+                                                    .background(.clear, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                                                
+                                                
+                                                Image(systemName: "archivebox")
+                                                    .foregroundColor(.white)
+                                                    .shadow(color: .gray, radius: 5, x: 0, y: 0)
+                                            }
+                                        }
+                                        .padding()
+                                        .scaleEffect( drawOpened ? 1.0 : 0 )
+                                        .frame(maxWidth: drawOpened ? .infinity : 0)
+                                        .fixedSize()
+                                        
+                                        ZStack {
+                                            
+                                            if lines.isEmpty {
+                                                Text("Draw Ideas While Working!")
+                                                    .foregroundColor(.gray)
+                                                    .font(.title3)
+                                            }
+                                            
+                                            Canvas { context, size in
+                                                for line in lines {
+                                                    var path = Path()
+                                                    path.addLines(line.points)
+                                                    context.stroke(path, with: .color(line.color), lineWidth: chosenWidth)
+                                                }
+                                                
+                                                // Draw the current line
+                                                var currentPath = Path()
+                                                currentPath.addLines(currentLine.points)
+                                                context.stroke(currentPath, with: .color(currentLine.color), lineWidth: chosenWidth)
+                                            }
+                                            
+                                            .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                                                .onChanged { value in
+                                                    let newPoint = value.location
+                                                    currentLine.points.append(newPoint)
+                                                    drawOpened = true
+                                                }
+                                                .onEnded { value in
+                                                    lines.append(currentLine)
+                                                    currentLine = Line(points: [])
+                                                }
+                                            )
+                                            .padding()
+                                            .frame(width: screenWidth/3, height: screenHeight/3)
+                                            .overlay {
+                                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                                    .stroke(Color(UIColor.systemGray4), lineWidth: 2)
+                                                
+                                            }
+                                            
+                                        }
+                                        
+                                    }
+                                    
+                                    VStack {
+                                        Text("Line Width: \(chosenWidth, specifier: "%.1f")")
+                                            .font(.headline)
+                                        
+                                        HStack {
+                                            Text("0")
+                                            Slider(value: $chosenWidth, in: 5...25, step: 5)
+                                            Text("25")
+                                        }
+                                        .frame(width: screenWidth/3)
+                                    }
+                                    .padding()
+                                }
+                            }
                             
                         }
                         
@@ -583,10 +597,14 @@ struct Homepage: View {
                 
                 
             }
-            .animation(.interactiveSpring(response: 1, dampingFraction: 0.8, blendDuration: 1.0))
+            .animation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.3))
             
         }
         .onAppear {
+            if thoughtText != "" {
+                thoughtsOpened = true
+            }
+            
             if currentTab == "+erder" {
                 currentTab = "Basic List"
             }
