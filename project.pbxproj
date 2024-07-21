@@ -19,6 +19,7 @@
 		714B94452C18AE6400CBC5A6 /* MyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714B943D2C18AE6400CBC5A6 /* MyApp.swift */; };
 		714B947E2C18AF0100CBC5A6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 714B947C2C18AF0100CBC5A6 /* Preview Assets.xcassets */; };
 		71BE0E332C2A2E0100AA9C09 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BE0E322C2A2E0100AA9C09 /* ContentView.swift */; };
+		71C61BDC2C2CCB5000DD629C /* myalarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71C61BDB2C2CCB4F00DD629C /* myalarm.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		714B943D2C18AE6400CBC5A6 /* MyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyApp.swift; sourceTree = "<group>"; };
 		714B947C2C18AF0100CBC5A6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		71BE0E322C2A2E0100AA9C09 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		71C61BDB2C2CCB4F00DD629C /* myalarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = myalarm.mp3; path = Assets.xcassets/myalarm.mp3; sourceTree = "<group>"; };
+		71EFB9BA2C444C37003797F2 /* The-Drawing-Board-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "The-Drawing-Board-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +107,7 @@
 		714B94092C18AE0700CBC5A6 /* The Drawing Board */ = {
 			isa = PBXGroup;
 			children = (
+				71EFB9BA2C444C37003797F2 /* The-Drawing-Board-Info.plist */,
 				714B947D2C18AF0100CBC5A6 /* Preview Content */,
 				71BE0E322C2A2E0100AA9C09 /* ContentView.swift */,
 				714B94362C18AE6400CBC5A6 /* Homepage.swift */,
@@ -113,6 +117,7 @@
 				714B94372C18AE6400CBC5A6 /* Settings.swift */,
 				714B943A2C18AE6400CBC5A6 /* Start.swift */,
 				714B940E2C18AE0800CBC5A6 /* Assets.xcassets */,
+				71C61BDB2C2CCB4F00DD629C /* myalarm.mp3 */,
 			);
 			path = "The Drawing Board";
 			sourceTree = "<group>";
@@ -249,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				714B947E2C18AF0100CBC5A6 /* Preview Assets.xcassets in Resources */,
+				71C61BDC2C2CCB5000DD629C /* myalarm.mp3 in Resources */,
 				714B940F2C18AE0800CBC5A6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -448,6 +454,7 @@
 				DEVELOPMENT_TEAM = 9SP33R5K89;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "The-Drawing-Board-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -479,6 +486,7 @@
 				DEVELOPMENT_TEAM = 9SP33R5K89;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "The-Drawing-Board-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
