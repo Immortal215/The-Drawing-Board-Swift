@@ -199,6 +199,11 @@ struct Pomo: View {
                                 
                                 
                                 VStack {
+                                    Text("Timer will conclude at \(Date(timeIntervalSinceNow: Double(progressTimePomo)).formatted(date: .omitted, time: .shortened))")
+                                        .font(.caption2)
+                                        .foregroundStyle(.gray)
+                                        .offset(y:-85)
+                                    
                                     Text("\(minutesPomo):\(secondsPomo)")
                                         .font(.system(size: 100))
                                         .foregroundStyle(currentColor)
