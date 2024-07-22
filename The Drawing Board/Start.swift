@@ -49,7 +49,6 @@ struct Start: View {
             }
             .frame(width: starter ? 0 : 500, height: starter ? 0 : 100, alignment: .center)
             .padding(starter ? 0 : 20)
-        
 
         }
         .onAppear {

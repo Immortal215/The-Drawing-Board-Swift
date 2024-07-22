@@ -54,13 +54,7 @@ struct Homepage: View {
     
     
     
-    // time stuff
-    @AppStorage("pomotimer") var pomoTime = 1500
-    @AppStorage("breakTime") var breakTime = 300
-    @AppStorage("breaks") var breaks = 4
-    @AppStorage("pomoOpened") var pomoOpened = false
-    @AppStorage("opened") var opened = false
-    @AppStorage("breakText") var breakText = false
+    
     
     // draw stuff
     @State var lines: [Line] = []
@@ -68,6 +62,14 @@ struct Homepage: View {
     @AppStorage("chosenWidth") var chosenWidth = 10.0
     @State var drawOpened = false
     
+    // time stuff
+    @AppStorage("pomotimer") var pomoTime = 1500
+    @AppStorage("breakTime") var breakTime = 300
+    @AppStorage("breaks") var breaks = 4
+    @AppStorage("pomoOpened") var pomoOpened = false
+    @AppStorage("opened") var opened = false
+    @AppStorage("breakText") var breakText = false
+    @AppStorage("currentBreaks") var currentBreaks = 0
     
     var hours: String {
         let time = (progressTime % 3600) / 3600
@@ -87,20 +89,39 @@ struct Homepage: View {
     }
     
     @AppStorage("progressTime") var progressTime = 0
+    @AppStorage("timered") var timered = false
     
-    var minutesPomo: String {
+    var timerPomo: Timer {
         
-        let time = (progressTimePomo % 3600) / 60
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+            if progressTimePomo > 0 {
+                progressTimePomo -= 1
+            } else if progressTimePomo == 0 {
+                if breakText == false {
+                    breakText = true
+                    progressTimePomo = breakTime
+                    currentBreaks += 1
+                } else {
+                    breakText = false
+                    progressTimePomo = pomoTime
+                }
+                
+            }
+        }
+    }
+    
+     var minutesPomo: String {
+        let time = progressTimePomo % 3600 == 0 ? 60 : (progressTimePomo % 3600) / 60
         return time < 10 ? "0\(time)" : "\(time)"
     }
     
     var secondsPomo: String {
-        
         let time = progressTimePomo % 60
         return time < 10 ? "0\(time)" : "\(time)"
     }
     
     @AppStorage("progressPomo") var progressTimePomo = 0
+    @State var myTimerPomo:Timer?
     
     @AppStorage("subjectcolor") var subjectColor: String = "#91E2FD"
     @AppStorage("titlecolor") var titleColor: String = "#E2FFC2"
@@ -426,6 +447,39 @@ struct Homepage: View {
                                         }
                                         .padding()
                                         
+                                        HStack {
+                                            Button {
+                                                timerPomo.invalidate()
+                                                myTimerPomo?.invalidate()
+                                                myTimerPomo = timerPomo
+                                                timered = true
+                                                
+                                            } label: {
+                                                Text("Start")
+                                                    .font(.custom("", fixedSize: 12.5))
+                                                    .foregroundStyle(.black)
+                                                    .animation(.bouncy(duration: 1, extraBounce: 0.1))
+                                                
+                                            }
+                                            .padding()
+                                            .buttonStyle(ChunkyButton(color: .green))
+                                            
+                                            Button {
+                                                timerPomo.invalidate()
+                                                myTimerPomo?.invalidate()
+                                                
+                                                timered = true 
+                                            } label: {
+                                                Text("Stop")
+                                                    .font(.custom("", fixedSize: 12.5))
+                                                    .foregroundStyle(.black)
+                                                    .animation(.bouncy(duration: 1, extraBounce: 0.1))
+                                                
+                                            }
+                                            .padding()
+                                            .buttonStyle(ChunkyButton(color: .red))
+                                            
+                                        }
                                     }
                                     .font(.system(size:25))
                                 }

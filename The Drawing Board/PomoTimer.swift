@@ -42,9 +42,11 @@ struct Pomo: View {
     @AppStorage("progressTime") var progressTime = 0
     @State var myTimer:Timer?
     
+    @AppStorage("timered") var timered = false
+    
     var timerPomo: Timer {
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+        return Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if progressTimePomo > 0 {
                 progressTimePomo -= 1
             } else if progressTimePomo == 0 {
@@ -56,6 +58,12 @@ struct Pomo: View {
                     breakText = false
                     progressTimePomo = pomoTime
                 }
+                
+            }
+            if timered {
+                myTimerPomo?.invalidate()
+                timered = false
+                timer.invalidate()
                 
             }
         }
@@ -76,7 +84,7 @@ struct Pomo: View {
     @State var myTimerPomo:Timer?
     @State var pomoClicked = false
     @State var textPomo = ""
-    
+
     var body: some View {
         ZStack {
             NavigationStack {
@@ -171,24 +179,24 @@ struct Pomo: View {
                             
                             ZStack {
                                 
-                                                                RoundedRectangle(cornerRadius: CGFloat(cornerRadius))
-                                                                    .stroke(lineWidth: 25)
-                                                                    .opacity(0.3)
-                                                                    .foregroundColor(.gray)
-                                                                    .animation(.linear(duration: 1))
+                                RoundedRectangle(cornerRadius: CGFloat(cornerRadius))
+                                    .stroke(lineWidth: 25)
+                                    .opacity(0.3)
+                                    .foregroundColor(.gray)
+                                    .animation(.linear(duration: 1))
                                 
-                                                                RoundedRectangle(cornerRadius: CGFloat(cornerRadius))
-                                                                    .trim(from: 0.0, to: CGFloat(breakText ? Double(progressTimePomo)/Double(breakTime) : Double(progressTimePomo)/Double(pomoTime)))
-                                                                    .stroke(style: StrokeStyle(lineWidth: 25, lineCap: .round, lineJoin: .round))
-                                                                    .rotationEffect(Angle(degrees: -90.0))
-                                                                    .animation(.linear(duration: 1))
-                                                                    .foregroundStyle(currentColor)
-                                                                    .opacity(0.3)
-                                                                    .onChange(of: breakText) { i in
-                                                                        currentColor = i ? .green : .pink
-                                                                    }
+                                RoundedRectangle(cornerRadius: CGFloat(cornerRadius))
+                                    .trim(from: 0.0, to: CGFloat(breakText ? Double(progressTimePomo)/Double(breakTime) : Double(progressTimePomo)/Double(pomoTime)))
+                                    .stroke(style: StrokeStyle(lineWidth: 25, lineCap: .round, lineJoin: .round))
+                                    .rotationEffect(Angle(degrees: -90.0))
+                                    .animation(.linear(duration: 1))
+                                    .foregroundStyle(currentColor)
+                                    .opacity(0.3)
+                                    .onChange(of: breakText) { i in
+                                        currentColor = i ? .green : .pink
+                                    }
                                 
-                          
+                                
                                 
                                 VStack {
                                     Text("\(minutesPomo):\(secondsPomo)")
@@ -232,8 +240,6 @@ struct Pomo: View {
                                     timerPomo.invalidate()
                                     myTimerPomo?.invalidate()
                                     myTimerPomo = timerPomo
-                                    
-                                    
                                 } label: {
                                     RoundedRectangle(cornerRadius: 20)
                                         .foregroundStyle(.green)
@@ -250,6 +256,7 @@ struct Pomo: View {
                                 }
                                 
                                 Button {
+                                    timerPomo.invalidate()
                                     myTimerPomo?.invalidate()
                                 } label: {
                                     RoundedRectangle(cornerRadius: 20)
@@ -266,6 +273,7 @@ struct Pomo: View {
                             }
                             Button {
                                 myTimerPomo?.invalidate()
+                                timered = false
                                 progressTimePomo = pomoTime
                                 breaks = 0
                                 breakText = false
@@ -275,7 +283,6 @@ struct Pomo: View {
                                 RoundedRectangle(cornerRadius: 20)
                                     .foregroundStyle(.blue)
                                     .opacity(0.6)
-                                
                                     .overlay(
                                         Text("Reset")
                                             .font(.custom("", fixedSize: 50))
@@ -317,9 +324,9 @@ struct Pomo: View {
         }
         
         // test without
-//        .onChange(of: breakText) {
-//            scheduleTimeBasedNotification(title: "\(breakText ? "Break" : "Pomo") Time!", body: "\(breakText ? "Pomo" : "Break") Completed!", sound: UNNotificationSound(named: UNNotificationSoundName(rawValue: "myalarm.mp3")))
-//        }
+        //        .onChange(of: breakText) {
+        //            scheduleTimeBasedNotification(title: "\(breakText ? "Break" : "Pomo") Time!", body: "\(breakText ? "Pomo" : "Break") Completed!", sound: UNNotificationSound(named: UNNotificationSoundName(rawValue: "myalarm.mp3")))
+        //        }
         
     }
 }
@@ -363,4 +370,29 @@ func scheduleTimeBasedNotification(title: String, body: String, sound: UNNotific
 func pomoResulter(pomoTime : Int, breakTime : Int, breakText : Bool) -> String {
     
     return "\(breakText ? "Pomo" : "Break") Time : \(breakText ? (pomoTime >= 60 ? "\(pomoTime/60) Minutes (\(pomoTime)s)" : "\(pomoTime) Seconds") : (breakTime >= 60 ? "\(breakTime/60) Minutes (\(breakTime)s)" : "\(breakTime) Seconds"))"
+}
+
+struct ChunkyButton: ButtonStyle {
+    @State var color : Color
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(size: 24, weight: .bold, design: .rounded))
+            .padding()
+            .background {
+                ZStack {
+                    Capsule()
+                        .fill(color)
+                        .stroke(.black, lineWidth: 3)
+                        .offset(y: configuration.isPressed ? 0 : 10)
+                        .opacity(0.5)
+                        .saturation(0.6)
+
+                    Capsule()
+                        .fill(color)
+                        .stroke(.black, lineWidth: 3)
+                        .saturation(0.6)
+                }
+            }
+            .offset(y: configuration.isPressed ? 10: 0)
+    }
 }
