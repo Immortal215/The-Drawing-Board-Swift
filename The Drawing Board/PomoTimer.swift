@@ -218,7 +218,7 @@ struct Pomo: View {
                                 
                                 VStack {
                                     
-                                    Text("Timer will conclude at \(myTimerPomo?.isValid ?? false ? Date(timeIntervalSinceNow: Double(progressTimePomo)).formatted(date: .omitted, time: .shortened) : "??:??")")
+                                    Text("Timer will conclude at \(endString)")
                                     
                                         .font(.caption2)
                                         .foregroundStyle(.gray)
@@ -324,7 +324,6 @@ struct Pomo: View {
                 .animation(.snappy(duration: 0.3, extraBounce: 0.3))
             }
             
-            
         }
         .onAppear {
             if pomoOpened == false {
@@ -340,14 +339,19 @@ struct Pomo: View {
             }
             progressTime = progressTime
             currentColor = breakText ? .green : .pink
+            endString = myTimerPomo?.isValid ?? false ? Date(timeIntervalSinceNow: Double(progressTimePomo)).formatted(date: .omitted, time: .shortened) : "??:??"
         }
         
         .onChange(of: pomoTime) {
             myTimerPomo?.invalidate()
             progressTimePomo = pomoTime
+            endString = myTimerPomo?.isValid ?? false ? Date(timeIntervalSinceNow: Double(progressTimePomo)).formatted(date: .omitted, time: .shortened) : "??:??"
         }
         .onChange(of: breakTime) {
             myTimerPomo?.invalidate()
+        }
+        .onChange(of: myTimerPomo) {
+            endString = myTimerPomo?.isValid ?? false ? Date(timeIntervalSinceNow: Double(progressTimePomo)).formatted(date: .omitted, time: .shortened) : "??:??"
         }
         
         // test without
