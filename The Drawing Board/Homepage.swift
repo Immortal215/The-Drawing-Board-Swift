@@ -155,15 +155,13 @@ struct Homepage: View {
             
             VStack {
                 Text("Home")
-                    .font(.system(size:75))
+                    .font(.largeTitle)
                     .fontWeight(.bold)
-                
                 Divider()
                 HStack {
                     VStack {
                         Text("Most Urgent!")
-                            .font(Font.custom("SF Compact Rounded", fixedSize: (screenWidth/25)))
-                            .frame(width: screenWidth/2, height: 100, alignment: .center)
+                            .font(.title2)
                         
                         Picker("",selection: $currentTab) {
                             ForEach(Array(bigDic.keys), id: \.self) { i in
@@ -381,12 +379,12 @@ struct Homepage: View {
                             // .animation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 1.0))
                             
                         }
+                        Spacer()
                     }
                     
                     VStack {
                         Text("Timers!")
-                            .font(Font.custom("SF Compact Rounded", fixedSize: (screenWidth/25)))
-                            .frame(width: screenWidth/2, height: 100, alignment: .center)
+                            .font(.title2)
                         Divider()
                             .frame(width: 400)
                         
@@ -465,13 +463,15 @@ struct Homepage: View {
                                                 
                                             } label: {
                                                 Text("Start")
-                                                    .font(.custom("", fixedSize: 12.5))
+                                                    .font(.callout)
                                                     .foregroundStyle(.black)
                                                     .animation(.bouncy(duration: 1, extraBounce: 0.1))
                                                 
                                             }
-                                            .padding()
+                                            .padding(5)
                                             .buttonStyle(ChunkyButton(color: .green))
+                                            .fixedSize()
+                                            .offset(x:-10)
                                             
                                             Button {
                                                 timered = true
@@ -479,13 +479,14 @@ struct Homepage: View {
                                                 
                                             } label: {
                                                 Text("Stop")
-                                                    .font(.custom("", fixedSize: 12.5))
+                                                    .font(.callout)
                                                     .foregroundStyle(.black)
                                                     .animation(.bouncy(duration: 1, extraBounce: 0.1))
                                                 
                                             }
-                                            .padding()
+                                            .padding(5)
                                             .buttonStyle(ChunkyButton(color: .red))
+                                            .fixedSize()
                                             
                                         }
                                     }
