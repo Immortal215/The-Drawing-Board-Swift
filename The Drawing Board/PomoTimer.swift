@@ -43,6 +43,7 @@ struct Pomo: View {
     @State var myTimer:Timer?
     
     @AppStorage("timered") var timered = false
+    @AppStorage("timeredStart") var timeredStart = false
     
     var timerPomo: Timer {
         
@@ -60,13 +61,27 @@ struct Pomo: View {
                 }
                 
             }
+           
             if timered {
-                myTimerPomo?.invalidate()
+                stopTimer()
                 timered = false
-                timer.invalidate()
-                
+            }
+            if timeredStart {
+                startTimer()
+                timeredStart = false
             }
         }
+    }
+    
+    func stopTimer() {
+        timerPomo.invalidate()
+        myTimerPomo?.invalidate()
+    }
+    
+    func startTimer() {
+        timerPomo.invalidate()
+        myTimerPomo?.invalidate()
+        myTimerPomo = timerPomo
     }
     
     var minutesPomo: String {
@@ -84,7 +99,8 @@ struct Pomo: View {
     @State var myTimerPomo:Timer?
     @State var pomoClicked = false
     @State var textPomo = ""
-
+@State var endString = ""
+    
     var body: some View {
         ZStack {
             NavigationStack {
@@ -199,7 +215,9 @@ struct Pomo: View {
                                 
                                 
                                 VStack {
-                                    Text("Timer will conclude at \(Date(timeIntervalSinceNow: Double(progressTimePomo)).formatted(date: .omitted, time: .shortened))")
+                                    
+                                    Text("Timer will conclude at \(myTimerPomo?.isValid ?? false ? Date(timeIntervalSinceNow: Double(progressTimePomo)).formatted(date: .omitted, time: .shortened) : "??:??")")
+
                                         .font(.caption2)
                                         .foregroundStyle(.gray)
                                         .offset(y:-85)
@@ -242,9 +260,10 @@ struct Pomo: View {
                             Spacer()
                             HStack {
                                 Button {
-                                    timerPomo.invalidate()
-                                    myTimerPomo?.invalidate()
-                                    myTimerPomo = timerPomo
+//                                    timerPomo.invalidate()
+//                                    myTimerPomo?.invalidate()
+//                                    myTimerPomo = timerPomo
+                                    startTimer()
                                 } label: {
                                     RoundedRectangle(cornerRadius: 20)
                                         .foregroundStyle(.green)
@@ -261,8 +280,9 @@ struct Pomo: View {
                                 }
                                 
                                 Button {
-                                    timerPomo.invalidate()
-                                    myTimerPomo?.invalidate()
+//                                    timerPomo.invalidate()
+//                                    myTimerPomo?.invalidate()
+                                    stopTimer()
                                 } label: {
                                     RoundedRectangle(cornerRadius: 20)
                                         .foregroundStyle(.red)
@@ -303,6 +323,7 @@ struct Pomo: View {
                 .animation(.snappy(duration: 0.3, extraBounce: 0.3))
             }
             
+            
         }
         .onAppear {
             if pomoOpened == false {
@@ -332,6 +353,7 @@ struct Pomo: View {
         //        .onChange(of: breakText) {
         //            scheduleTimeBasedNotification(title: "\(breakText ? "Break" : "Pomo") Time!", body: "\(breakText ? "Pomo" : "Break") Completed!", sound: UNNotificationSound(named: UNNotificationSoundName(rawValue: "myalarm.mp3")))
         //        }
+        
         
     }
 }

@@ -90,25 +90,8 @@ struct Homepage: View {
     
     @AppStorage("progressTime") var progressTime = 0
     @AppStorage("timered") var timered = false
-    
-    var timerPomo: Timer {
-        
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
-            if progressTimePomo > 0 {
-                progressTimePomo -= 1
-            } else if progressTimePomo == 0 {
-                if breakText == false {
-                    breakText = true
-                    progressTimePomo = breakTime
-                    currentBreaks += 1
-                } else {
-                    breakText = false
-                    progressTimePomo = pomoTime
-                }
-                
-            }
-        }
-    }
+    @AppStorage("timeredStart") var timeredStart = false
+
     
      var minutesPomo: String {
         let time = progressTimePomo % 3600 == 0 ? 60 : (progressTimePomo % 3600) / 60
@@ -121,7 +104,6 @@ struct Homepage: View {
     }
     
     @AppStorage("progressPomo") var progressTimePomo = 0
-    @State var myTimerPomo:Timer?
     
     @AppStorage("subjectcolor") var subjectColor: String = "#91E2FD"
     @AppStorage("titlecolor") var titleColor: String = "#E2FFC2"
@@ -337,16 +319,7 @@ struct Homepage: View {
                                             }
                                             
                                         }
-                                        .foregroundStyle(foregroundStyler(dueDate: dueDates[index], assignment: names[index]))
-                                        // try without
-                                        //                                        .onAppear {
-                                        //                                            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-                                        //                                                if dueDates.count < index {
-                                        //                                                    foregroundStyle = foregroundStyler(dueDate: dueDates[index], assignment: names[index] )
-                                        //                                                }
-                                        //                                            }
-                                        //                                           styleNotification(dueDate: dueDates[index], assignment: names[index])
-                                        //                                        }
+                                        .foregroundStyle(foregroundStyler(dueDate: dueDates[index], assignment: names[index]))                                  
                                         .onChange(of: dueDates[index]) {
                                             
                                             Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
@@ -442,17 +415,12 @@ struct Homepage: View {
                                             Text("\(minutesPomo):\(secondsPomo)")
                                                 .frame(width:100, height:50)
                                                 .padding()
-                                            
-                                            
                                         }
                                         .padding()
                                         
                                         HStack {
                                             Button {
-                                                timerPomo.invalidate()
-                                                myTimerPomo?.invalidate()
-                                                myTimerPomo = timerPomo
-                                                timered = true
+                                                timeredStart = true                                                
                                                 
                                             } label: {
                                                 Text("Start")
@@ -465,9 +433,6 @@ struct Homepage: View {
                                             .buttonStyle(ChunkyButton(color: .green))
                                             
                                             Button {
-                                                timerPomo.invalidate()
-                                                myTimerPomo?.invalidate()
-                                                
                                                 timered = true 
                                             } label: {
                                                 Text("Stop")
