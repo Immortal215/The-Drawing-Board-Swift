@@ -159,6 +159,7 @@ struct Homepage: View {
                     .fontWeight(.bold)
                 Divider()
                 HStack {
+                    // planner
                     VStack {
                         Text("Most Urgent!")
                             .font(.title2)
@@ -381,7 +382,9 @@ struct Homepage: View {
                         }
                         Spacer()
                     }
+                    .frame(width: screenWidth/2)
                     
+                    // timer/draw/thoughts
                     VStack {
                         Text("Timers!")
                             .font(.title2)
@@ -491,6 +494,7 @@ struct Homepage: View {
                                         }
                                     }
                                     .font(.system(size:25))
+                                    .fixedSize()
                                 }
                                 
                                 // thought text
@@ -538,7 +542,7 @@ struct Homepage: View {
                                                 }
                                                 .multilineTextAlignment(.center)
                                                 .foregroundStyle(.white)
-                                                .frame(maxWidth: screenWidth/3, maxHeight: screenHeight/7)
+                                                .frame(maxWidth: screenWidth/2.1, maxHeight: screenHeight/7)
                                                 .scrollContentBackground(.hidden)
                                                 .font(.title3)
                                                 .padding()
@@ -626,7 +630,7 @@ struct Homepage: View {
                                                 }
                                             )
                                             .padding()
-                                            .frame(width: screenWidth/3, height: screenHeight/3)
+                                            .frame(width: screenWidth/2.1, height: screenHeight/3)
                                             .overlay {
                                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
                                                     .stroke(Color(UIColor.systemGray4), lineWidth: 2)
@@ -651,11 +655,13 @@ struct Homepage: View {
                                     .padding()
                                 }
                             }
+                            .frame(width: screenWidth/2)
                             
                         }
                         
                         
                     }
+                    .frame(width: screenWidth/2)
                 }
                 
                 
