@@ -3,6 +3,8 @@ import SwiftUI
 struct Start: View {
     @State var starter = true
     @AppStorage("currentTab") var currentTab = "Basic List"
+    @AppStorage("timered") var timered = false
+    @AppStorage("timeredStart") var timeredStart = false
     
     var body: some View {
         NavigationStack {
@@ -55,6 +57,8 @@ struct Start: View {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
                 
             }
+            timered = false
+            timeredStart = false 
         }
     }
 }

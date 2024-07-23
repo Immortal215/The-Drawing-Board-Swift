@@ -43,30 +43,47 @@ struct Pomo: View {
     @State var myTimer:Timer?
     
     @AppStorage("timered") var timered = false
+    @AppStorage("timeredStart") var timeredStart = false
     
     var timerPomo: Timer {
         
-        return Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            if progressTimePomo > 0 {
-                progressTimePomo -= 1
-            } else if progressTimePomo == 0 {
-                if breakText == false {
-                    breakText = true
-                    progressTimePomo = breakTime
-                    currentBreaks += 1
-                } else {
-                    breakText = false
-                    progressTimePomo = pomoTime
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            if timered != true || timeredStart != true {
+                if progressTimePomo > 0 {
+                    progressTimePomo -= 1
+                } else if progressTimePomo == 0 {
+                    if breakText == false {
+                        breakText = true
+                        progressTimePomo = breakTime
+                        currentBreaks += 1
+                    } else {
+                        breakText = false
+                        progressTimePomo = pomoTime
+                    }
+                    
                 }
-                
             }
-            if timered {
-                myTimerPomo?.invalidate()
+            
+            if timered == true {
+                stopTimer()
                 timered = false
-                timer.invalidate()
-                
+            }
+            if timeredStart == true {
+                startTimer()
+                timeredStart = false
             }
         }
+    }
+    
+    func stopTimer() {
+        timerPomo.invalidate()
+        myTimerPomo?.invalidate()
+    }
+    
+    func startTimer() {
+        timerPomo.invalidate()
+        myTimerPomo?.invalidate()
+        myTimerPomo = timerPomo
     }
     
     var minutesPomo: String {
@@ -84,7 +101,8 @@ struct Pomo: View {
     @State var myTimerPomo:Timer?
     @State var pomoClicked = false
     @State var textPomo = ""
-
+    @State var endString = ""
+    
     var body: some View {
         ZStack {
             NavigationStack {
@@ -199,6 +217,13 @@ struct Pomo: View {
                                 
                                 
                                 VStack {
+                                    
+                                    Text("Timer will conclude at \(myTimerPomo?.isValid ?? false ? Date(timeIntervalSinceNow: Double(progressTimePomo)).formatted(date: .omitted, time: .shortened) : "??:??")")
+                                    
+                                        .font(.caption2)
+                                        .foregroundStyle(.gray)
+                                        .offset(y:-85)
+                                    
                                     Text("\(minutesPomo):\(secondsPomo)")
                                         .font(.system(size: 100))
                                         .foregroundStyle(currentColor)
@@ -237,9 +262,10 @@ struct Pomo: View {
                             Spacer()
                             HStack {
                                 Button {
-                                    timerPomo.invalidate()
-                                    myTimerPomo?.invalidate()
-                                    myTimerPomo = timerPomo
+                                    if timeredStart != true {
+                                        timeredStart = true
+                                        startTimer()
+                                    }
                                 } label: {
                                     RoundedRectangle(cornerRadius: 20)
                                         .foregroundStyle(.green)
@@ -247,7 +273,7 @@ struct Pomo: View {
                                     
                                         .overlay(
                                             Text("Start")
-                                                .font(.custom("", fixedSize: 50))
+                                                .font(.custom("",    fixedSize: 50))
                                                 .foregroundStyle(.white)
                                                 .animation(.bouncy(duration: 1, extraBounce: 0.1))
                                         )
@@ -256,8 +282,9 @@ struct Pomo: View {
                                 }
                                 
                                 Button {
-                                    timerPomo.invalidate()
-                                    myTimerPomo?.invalidate()
+                                    timered = true
+                                    stopTimer()
+                                    
                                 } label: {
                                     RoundedRectangle(cornerRadius: 20)
                                         .foregroundStyle(.red)
@@ -272,8 +299,7 @@ struct Pomo: View {
                                 }
                             }
                             Button {
-                                myTimerPomo?.invalidate()
-                                timered = false
+                                stopTimer()
                                 progressTimePomo = pomoTime
                                 breaks = 0
                                 breakText = false
@@ -297,6 +323,7 @@ struct Pomo: View {
                 }
                 .animation(.snappy(duration: 0.3, extraBounce: 0.3))
             }
+            
             
         }
         .onAppear {
@@ -327,6 +354,7 @@ struct Pomo: View {
         //        .onChange(of: breakText) {
         //            scheduleTimeBasedNotification(title: "\(breakText ? "Break" : "Pomo") Time!", body: "\(breakText ? "Pomo" : "Break") Completed!", sound: UNNotificationSound(named: UNNotificationSoundName(rawValue: "myalarm.mp3")))
         //        }
+        
         
     }
 }
@@ -386,7 +414,7 @@ struct ChunkyButton: ButtonStyle {
                         .offset(y: configuration.isPressed ? 0 : 10)
                         .opacity(0.5)
                         .saturation(0.6)
-
+                    
                     Capsule()
                         .fill(color)
                         .stroke(.black, lineWidth: 3)

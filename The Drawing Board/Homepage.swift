@@ -90,27 +90,48 @@ struct Homepage: View {
     
     @AppStorage("progressTime") var progressTime = 0
     @AppStorage("timered") var timered = false
+    @AppStorage("timeredStart") var timeredStart = false
     
     var timerPomo: Timer {
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
-            if progressTimePomo > 0 {
-                progressTimePomo -= 1
-            } else if progressTimePomo == 0 {
-                if breakText == false {
-                    breakText = true
-                    progressTimePomo = breakTime
-                    currentBreaks += 1
-                } else {
-                    breakText = false
-                    progressTimePomo = pomoTime
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            if timered != true || timeredStart != true {
+                if progressTimePomo > 0 {
+                    progressTimePomo -= 1
+                } else if progressTimePomo == 0 {
+                    if breakText == false {
+                        breakText = true
+                        progressTimePomo = breakTime
+                        currentBreaks += 1
+                    } else {
+                        breakText = false
+                        progressTimePomo = pomoTime
+                    }
+                    
                 }
-                
+            }
+            
+            if timered == true {
+                stopTimer()
+                timered = false
+            }
+            if timeredStart == true {
+                startTimer()
+                timeredStart = false
             }
         }
     }
+    func stopTimer() {
+        timerPomo.invalidate()
+        myTimerPomo?.invalidate()
+    }
     
-     var minutesPomo: String {
+    func startTimer() {
+        timerPomo.invalidate()
+        myTimerPomo?.invalidate()
+        myTimerPomo = timerPomo
+    }
+    var minutesPomo: String {
         let time = progressTimePomo % 3600 == 0 ? 60 : (progressTimePomo % 3600) / 60
         return time < 10 ? "0\(time)" : "\(time)"
     }
@@ -122,7 +143,6 @@ struct Homepage: View {
     
     @AppStorage("progressPomo") var progressTimePomo = 0
     @State var myTimerPomo:Timer?
-    
     @AppStorage("subjectcolor") var subjectColor: String = "#91E2FD"
     @AppStorage("titlecolor") var titleColor: String = "#E2FFC2"
     @AppStorage("descolor") var descriptionColor: String = "#FFFFFF"
@@ -135,15 +155,13 @@ struct Homepage: View {
             
             VStack {
                 Text("Home")
-                    .font(.system(size:75))
+                    .font(.largeTitle)
                     .fontWeight(.bold)
-                
                 Divider()
                 HStack {
                     VStack {
                         Text("Most Urgent!")
-                            .font(Font.custom("SF Compact Rounded", fixedSize: (screenWidth/25)))
-                            .frame(width: screenWidth/2, height: 100, alignment: .center)
+                            .font(.title2)
                         
                         Picker("",selection: $currentTab) {
                             ForEach(Array(bigDic.keys), id: \.self) { i in
@@ -338,15 +356,6 @@ struct Homepage: View {
                                             
                                         }
                                         .foregroundStyle(foregroundStyler(dueDate: dueDates[index], assignment: names[index]))
-                                        // try without
-                                        //                                        .onAppear {
-                                        //                                            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-                                        //                                                if dueDates.count < index {
-                                        //                                                    foregroundStyle = foregroundStyler(dueDate: dueDates[index], assignment: names[index] )
-                                        //                                                }
-                                        //                                            }
-                                        //                                           styleNotification(dueDate: dueDates[index], assignment: names[index])
-                                        //                                        }
                                         .onChange(of: dueDates[index]) {
                                             
                                             Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
@@ -370,12 +379,12 @@ struct Homepage: View {
                             // .animation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 1.0))
                             
                         }
+                        Spacer()
                     }
                     
                     VStack {
                         Text("Timers!")
-                            .font(Font.custom("SF Compact Rounded", fixedSize: (screenWidth/25)))
-                            .frame(width: screenWidth/2, height: 100, alignment: .center)
+                            .font(.title2)
                         Divider()
                             .frame(width: 400)
                         
@@ -442,42 +451,42 @@ struct Homepage: View {
                                             Text("\(minutesPomo):\(secondsPomo)")
                                                 .frame(width:100, height:50)
                                                 .padding()
-                                            
-                                            
                                         }
                                         .padding()
                                         
                                         HStack {
                                             Button {
-                                                timerPomo.invalidate()
-                                                myTimerPomo?.invalidate()
-                                                myTimerPomo = timerPomo
-                                                timered = true
+                                                if timeredStart != true {
+                                                    timeredStart = true
+                                                    startTimer()
+                                                }
                                                 
                                             } label: {
                                                 Text("Start")
-                                                    .font(.custom("", fixedSize: 12.5))
+                                                    .font(.callout)
                                                     .foregroundStyle(.black)
                                                     .animation(.bouncy(duration: 1, extraBounce: 0.1))
                                                 
                                             }
-                                            .padding()
+                                            .padding(5)
                                             .buttonStyle(ChunkyButton(color: .green))
+                                            .fixedSize()
+                                            .offset(x:-10)
                                             
                                             Button {
-                                                timerPomo.invalidate()
-                                                myTimerPomo?.invalidate()
+                                                timered = true
+                                                stopTimer()
                                                 
-                                                timered = true 
                                             } label: {
                                                 Text("Stop")
-                                                    .font(.custom("", fixedSize: 12.5))
+                                                    .font(.callout)
                                                     .foregroundStyle(.black)
                                                     .animation(.bouncy(duration: 1, extraBounce: 0.1))
                                                 
                                             }
-                                            .padding()
+                                            .padding(5)
                                             .buttonStyle(ChunkyButton(color: .red))
+                                            .fixedSize()
                                             
                                         }
                                     }

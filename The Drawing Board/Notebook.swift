@@ -59,7 +59,7 @@ struct Notebook: View {
             
             VStack {
                 Text("Planner")
-                    .font(.system(size: 75))
+                    .font(.largeTitle)
                     .fontWeight(.bold)
                 
                 Divider()
@@ -991,3 +991,4 @@ struct OutlinedIconTextFieldStyle: TextFieldStyle {
         }
     }
 }
+
