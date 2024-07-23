@@ -47,26 +47,28 @@ struct Pomo: View {
     
     var timerPomo: Timer {
         
-        return Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            if progressTimePomo > 0 {
-                progressTimePomo -= 1
-            } else if progressTimePomo == 0 {
-                if breakText == false {
-                    breakText = true
-                    progressTimePomo = breakTime
-                    currentBreaks += 1
-                } else {
-                    breakText = false
-                    progressTimePomo = pomoTime
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            if timered != true || timeredStart != true {
+                if progressTimePomo > 0 {
+                    progressTimePomo -= 1
+                } else if progressTimePomo == 0 {
+                    if breakText == false {
+                        breakText = true
+                        progressTimePomo = breakTime
+                        currentBreaks += 1
+                    } else {
+                        breakText = false
+                        progressTimePomo = pomoTime
+                    }
+                    
                 }
-                
             }
-           
-            if timered {
+            
+            if timered == true {
                 stopTimer()
                 timered = false
             }
-            if timeredStart {
+            if timeredStart == true {
                 startTimer()
                 timeredStart = false
             }
@@ -99,7 +101,7 @@ struct Pomo: View {
     @State var myTimerPomo:Timer?
     @State var pomoClicked = false
     @State var textPomo = ""
-@State var endString = ""
+    @State var endString = ""
     
     var body: some View {
         ZStack {
@@ -217,7 +219,7 @@ struct Pomo: View {
                                 VStack {
                                     
                                     Text("Timer will conclude at \(myTimerPomo?.isValid ?? false ? Date(timeIntervalSinceNow: Double(progressTimePomo)).formatted(date: .omitted, time: .shortened) : "??:??")")
-
+                                    
                                         .font(.caption2)
                                         .foregroundStyle(.gray)
                                         .offset(y:-85)
@@ -260,10 +262,10 @@ struct Pomo: View {
                             Spacer()
                             HStack {
                                 Button {
-//                                    timerPomo.invalidate()
-//                                    myTimerPomo?.invalidate()
-//                                    myTimerPomo = timerPomo
-                                    startTimer()
+                                    if timeredStart != true {
+                                        timeredStart = true
+                                        startTimer()
+                                    }
                                 } label: {
                                     RoundedRectangle(cornerRadius: 20)
                                         .foregroundStyle(.green)
@@ -271,7 +273,7 @@ struct Pomo: View {
                                     
                                         .overlay(
                                             Text("Start")
-                                                .font(.custom("", fixedSize: 50))
+                                                .font(.custom("",    fixedSize: 50))
                                                 .foregroundStyle(.white)
                                                 .animation(.bouncy(duration: 1, extraBounce: 0.1))
                                         )
@@ -280,9 +282,9 @@ struct Pomo: View {
                                 }
                                 
                                 Button {
-//                                    timerPomo.invalidate()
-//                                    myTimerPomo?.invalidate()
+                                    timered = true
                                     stopTimer()
+                                    
                                 } label: {
                                     RoundedRectangle(cornerRadius: 20)
                                         .foregroundStyle(.red)
@@ -297,8 +299,7 @@ struct Pomo: View {
                                 }
                             }
                             Button {
-                                myTimerPomo?.invalidate()
-                                timered = false
+                                stopTimer()
                                 progressTimePomo = pomoTime
                                 breaks = 0
                                 breakText = false
@@ -413,7 +414,7 @@ struct ChunkyButton: ButtonStyle {
                         .offset(y: configuration.isPressed ? 0 : 10)
                         .opacity(0.5)
                         .saturation(0.6)
-
+                    
                     Capsule()
                         .fill(color)
                         .stroke(.black, lineWidth: 3)

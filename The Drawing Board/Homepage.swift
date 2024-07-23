@@ -91,9 +91,47 @@ struct Homepage: View {
     @AppStorage("progressTime") var progressTime = 0
     @AppStorage("timered") var timered = false
     @AppStorage("timeredStart") var timeredStart = false
-
     
-     var minutesPomo: String {
+    var timerPomo: Timer {
+        
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            if timered != true || timeredStart != true {
+                if progressTimePomo > 0 {
+                    progressTimePomo -= 1
+                } else if progressTimePomo == 0 {
+                    if breakText == false {
+                        breakText = true
+                        progressTimePomo = breakTime
+                        currentBreaks += 1
+                    } else {
+                        breakText = false
+                        progressTimePomo = pomoTime
+                    }
+                    
+                }
+            }
+            
+            if timered == true {
+                stopTimer()
+                timered = false
+            }
+            if timeredStart == true {
+                startTimer()
+                timeredStart = false
+            }
+        }
+    }
+    func stopTimer() {
+        timerPomo.invalidate()
+        myTimerPomo?.invalidate()
+    }
+    
+    func startTimer() {
+        timerPomo.invalidate()
+        myTimerPomo?.invalidate()
+        myTimerPomo = timerPomo
+    }
+    var minutesPomo: String {
         let time = progressTimePomo % 3600 == 0 ? 60 : (progressTimePomo % 3600) / 60
         return time < 10 ? "0\(time)" : "\(time)"
     }
@@ -104,7 +142,7 @@ struct Homepage: View {
     }
     
     @AppStorage("progressPomo") var progressTimePomo = 0
-    
+    @State var myTimerPomo:Timer?
     @AppStorage("subjectcolor") var subjectColor: String = "#91E2FD"
     @AppStorage("titlecolor") var titleColor: String = "#E2FFC2"
     @AppStorage("descolor") var descriptionColor: String = "#FFFFFF"
@@ -319,7 +357,7 @@ struct Homepage: View {
                                             }
                                             
                                         }
-                                        .foregroundStyle(foregroundStyler(dueDate: dueDates[index], assignment: names[index]))                                  
+                                        .foregroundStyle(foregroundStyler(dueDate: dueDates[index], assignment: names[index]))
                                         .onChange(of: dueDates[index]) {
                                             
                                             Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
@@ -420,7 +458,10 @@ struct Homepage: View {
                                         
                                         HStack {
                                             Button {
-                                                timeredStart = true                                                
+                                                if timeredStart != true {
+                                                    timeredStart = true
+                                                    startTimer()
+                                                }
                                                 
                                             } label: {
                                                 Text("Start")
@@ -433,7 +474,9 @@ struct Homepage: View {
                                             .buttonStyle(ChunkyButton(color: .green))
                                             
                                             Button {
-                                                timered = true 
+                                                timered = true
+                                                stopTimer()
+                                                
                                             } label: {
                                                 Text("Stop")
                                                     .font(.custom("", fixedSize: 12.5))
