@@ -224,7 +224,7 @@ struct Notebook: View {
                                                     RoundedRectangle(cornerRadius: 8, style: .continuous)
                                                         .stroke(Color(UIColor.systemGray4), lineWidth: 5)
                                                         .background(.gray.opacity(0.1), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                                                        .frame(width: screenWidth/8, height: 35)
+                                                        .frame(width: screenWidth/7.5, height: 45)
                                                         .scaledToFit()
                                                 }
                                             
@@ -422,7 +422,7 @@ struct Notebook: View {
                                                             .offset(x: subjects[index] != " " ? 100 : (infoArray[index] != " " ? 100 : 0) )
                                                             .padding(30)
                                                             .fixedSize(horizontal: true, vertical: false)
-
+                                                        
                                                     }
                                                     .frame(width: infoArray[index] != " " ? screenWidth/3 : screenWidth/2, alignment: infoArray[index] != " " ? .topLeading : subjects[index] != " " ? .topLeading : .center)
                                                     
@@ -991,4 +991,3 @@ struct OutlinedIconTextFieldStyle: TextFieldStyle {
         }
     }
 }
-
