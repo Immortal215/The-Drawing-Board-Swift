@@ -83,8 +83,6 @@ struct Notebook: View {
                     // both buttons
                     HStack {
                         if currentTab != "+erder" {
-                            
-                            
                             Button {
                                 if loadedData == true {
                                     showAlert.toggle()
@@ -218,8 +216,8 @@ struct Notebook: View {
                                         ZStack {
                                             
                                             Text("Create Assignment")
-                                                .foregroundStyle(.blue)
-                                                .shadow(color: .gray, radius: 5, x: 0.0, y: 0.0)
+                                                .foregroundStyle(.green)
+                                              //  .shadow(color: .gray, radius: 5, x: 0.0, y: 0.0)
                                                 .background {
                                                     RoundedRectangle(cornerRadius: 8, style: .continuous)
                                                         .stroke(Color(UIColor.systemGray4), lineWidth: 5)
@@ -276,9 +274,9 @@ struct Notebook: View {
                         Button("Ok", role: .cancel) {}
                     }
                     .padding()
-                    Divider()
-                        .frame(width: currentTab == "+erder" ? 0 : 300)
-                        .padding()
+                   // Divider()
+                     //   .frame(width: currentTab == "+erder" ? 0 : 300)
+                       // .padding()
                     
                     Text(currentTab == "+erder" ? "Edit Lists Below!" : caughtUp ? "Add Objectives Here!" : "")
                         .font(.title)
@@ -302,7 +300,6 @@ struct Notebook: View {
                                         )
                                         .shadow(radius: 5)
                                     //  .frame(width: screenWidth/2.1)
-                                    
                                     
                                     VStack {
                                         HStack {
@@ -420,7 +417,7 @@ struct Notebook: View {
                                                             .fontWeight(.heavy)
                                                             .font(.largeTitle)
                                                             .offset(x: subjects[index] != " " ? 100 : (infoArray[index] != " " ? 100 : 0) )
-                                                            .padding(30)
+                                                            .padding()
                                                             .fixedSize(horizontal: true, vertical: false)
                                                         
                                                     }
@@ -604,13 +601,14 @@ struct Notebook: View {
                                                         .frame(maxWidth: subjects[index] != " " ? screenWidth/3 : 0, alignment: .topTrailing)
                                                         
                                                     }
-                                                    
-                                                    
+                                                 //      .offset(y: -25)
                                                 }
+                                                //.offset(y: -25)
                                                 
                                                 Divider()
-                                                    .offset(x: 100)
-                                                
+                                                    .offset(x: 50)
+                                                    .frame(maxWidth: screenWidth/1.2, alignment: .leading)   
+                                                  
                                                 // dates
                                                 HStack {
                                                     
@@ -661,7 +659,7 @@ struct Notebook: View {
                             
                         }
                         .animation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 1.0))
-                        .offset(y: 25)
+                        .offset(y:-25)
                         
                         
                         // the editing tab
