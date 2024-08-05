@@ -542,7 +542,7 @@ struct Homepage: View {
                                                 }
                                                 .multilineTextAlignment(.center)
                                                 .foregroundStyle(.white)
-                                                .frame(maxWidth: screenWidth/2.1, maxHeight: screenHeight/7)
+                                                .frame(maxWidth: thoughtsOpened ? screenWidth/2.3 : screenWidth/2.1, maxHeight: screenHeight/7)
                                                 .scrollContentBackground(.hidden)
                                                 .font(.title3)
                                                 .padding()
@@ -572,7 +572,7 @@ struct Homepage: View {
                                         }
                                     }
                                 }
-                                
+                                .padding()
                                 // draw
                                 VStack {
                                     HStack {
@@ -630,7 +630,7 @@ struct Homepage: View {
                                                 }
                                             )
                                             .padding()
-                                            .frame(width: screenWidth/2.1, height: screenHeight/3)
+                                            .frame(width: drawOpened ? screenWidth/2.5 : screenWidth/2.2, height: screenHeight/3)
                                             .overlay {
                                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
                                                     .stroke(Color(UIColor.systemGray4), lineWidth: 2)
@@ -640,7 +640,7 @@ struct Homepage: View {
                                         }
                                         
                                     }
-                                    
+                                    .padding()
                                     VStack {
                                         Text("Line Width: \(chosenWidth, specifier: "%.1f")")
                                             .font(.headline)
