@@ -59,7 +59,7 @@ struct Homepage: View {
     // draw stuff
     @State var lines: [Line] = []
     @State var currentLine: Line = Line(points: [])
-    @AppStorage("chosenWidth") var chosenWidth = 10.0
+    @AppStorage("chosenWidth") var chosenWidth = 5.0
     @State var drawOpened = false
     
     // time stuff
@@ -572,7 +572,7 @@ struct Homepage: View {
                                         }
                                     }
                                 }
-                                .padding()
+                               // .padding()
                                 // draw
                                 VStack {
                                     HStack {
@@ -629,7 +629,7 @@ struct Homepage: View {
                                                     currentLine = Line(points: [])
                                                 }
                                             )
-                                            .padding()
+                                           // .padding()
                                             .frame(width: drawOpened ? screenWidth/2.5 : screenWidth/2.2, height: screenHeight/3)
                                             .overlay {
                                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
@@ -640,19 +640,19 @@ struct Homepage: View {
                                         }
                                         
                                     }
-                                    .padding()
+                                  //  .padding()
                                     VStack {
                                         Text("Line Width: \(chosenWidth, specifier: "%.1f")")
                                             .font(.headline)
                                         
                                         HStack {
                                             Text("0")
-                                            Slider(value: $chosenWidth, in: 5...25, step: 5)
-                                            Text("25")
+                                            Slider(value: $chosenWidth, in: 1...15, step: 1)
+                                            Text("15")
                                         }
                                         .frame(width: screenWidth/3)
                                     }
-                                    .padding()
+                                    //.padding()
                                 }
                             }
                             .frame(width: screenWidth/2)
