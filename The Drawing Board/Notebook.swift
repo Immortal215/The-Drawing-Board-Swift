@@ -423,9 +423,8 @@ struct Notebook: View {
                                                         // .fixedSize(horizontal: true, vertical: false)
                                                         
                                                     }
-                                                    .frame(maxWidth: infoArray[index] != " " ? screenWidth/3 : screenWidth/2, alignment: .center)
-                                                    
-                                                    
+                                                    .frame(maxWidth: infoArray[index] != " " ? screenWidth/3 : screenWidth/2, alignment: infoArray[index] != " " ? .leading : subjects[index] != " " ? .leading : .center)
+                                                    .fixedSize(horizontal: true, vertical: false)
                                                     
                                                     // description texteditor
                                                     if infoArray[index] != " " {
@@ -532,7 +531,8 @@ struct Notebook: View {
                                                                         .foregroundStyle(Color(hex: subjectColor))
                                                                         .shadow(color: .gray, radius: 5, x: 0, y: 0)
                                                                     
-                                                                }                                                            }
+                                                                }   
+                                                            }
                                                             Picker("\(subjects[index])", selection: $subjects[index]) {
                                                                 ForEach(Array(Set(subjects)), id: \.self) { chosenSubject in
                                                                     let count = subjects.filter { $0 == chosenSubject }.count
@@ -548,7 +548,7 @@ struct Notebook: View {
                                                             
                                                             .scaleEffect(pickerOpen ? 1.0 : 0.0)
                                                             .frame(maxWidth: pickerOpen ? .infinity : 0 )
-                                                            .fixedSize()
+                                                           // .fixedSize()
                                                             .onChange(of: subjects[index]) {
                                                                 bigDic[currentTab]!["subjects"] = subjects
                                                                 UserDefaults.standard.set(bigDic, forKey: "DicKey")
@@ -557,8 +557,6 @@ struct Notebook: View {
                                                             TextField("\(subjects[index])".trimmingCharacters(in: .whitespacesAndNewlines), text: $subjects[index])
                                                             // .textFieldStyle(RoundedTextFieldStyle(icon: Image(systemName: "book.closed"), iconColor: Color(hex: subjectColor)))
                                                                 .textFieldStyle(RoundedTextFieldStyle())
-                                                            
-                                                                .fixedSize()
                                                                 .onChange(of: subjects[index]) {
                                                                     
                                                                     if infoArray[index] == " " {
@@ -603,8 +601,8 @@ struct Notebook: View {
                                                         .tint(Color(hex: subjectColor))
                                                         .foregroundStyle(Color(hex: subjectColor))
                                                         .padding()
-                                                        .frame(maxWidth: subjects[index] != " " ? screenWidth/3 : 0, alignment: .topTrailing)
-                                                        
+                                                        .frame(maxWidth: subjects[index] != " " ? (infoArray[index] != " " ? screenWidth/3 : screenWidth/2) : 0)
+                                                        .fixedSize(horizontal: true, vertical: false)
                                                     }
                                                     //      .offset(y: -25)
                                                 }

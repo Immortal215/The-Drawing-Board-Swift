@@ -295,14 +295,15 @@ struct Homepage: View {
                                                         // Spacer(minLength: 0)
                                                         Text(names[index].trimmingCharacters(in: .whitespacesAndNewlines))
                                                             .foregroundStyle(Color(hex: titleColor))
-                                                            .padding()
+                                                            //.padding()
 //                                                            .background {
 //                                                                Capsule()
 //                                                                    .stroke(gradientTitle, lineWidth: 2)
 //                                                                    .saturation(1.8)
 //                                                            }
                                                             .font(.title2)
-                                                           .frame(maxWidth: screenWidth/6)
+                                                            .frame(maxWidth: screenWidth/6, maxHeight: 20)
+                                                        
                                                         
                                                         if subjects[index] != " " {
                                                             //  Spacer(minLength: 0)
@@ -311,14 +312,14 @@ struct Homepage: View {
                                                             
                                                             Text(subjects[index].trimmingCharacters(in: .whitespacesAndNewlines))
                                                                 .foregroundStyle(Color(hex: subjectColor))
-                                                                .padding()
+                                                               // .padding()
 //                                                                .background {
 //                                                                    Capsule()
 //                                                                        .stroke(gradientSubject, lineWidth: 2)
 //                                                                    // .saturation()
 //                                                                }
                                                                 .font(.title2)
-                                                             .frame(maxWidth: screenWidth/6)
+                                                                .frame(maxWidth: screenWidth/6, maxHeight: 20)
                                                             
                                                             
                                                         }
@@ -656,6 +657,7 @@ struct Homepage: View {
                                 }
                             }
                             .frame(width: screenWidth/2)
+                            
                             
                         }
                         
