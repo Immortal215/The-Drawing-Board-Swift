@@ -2,7 +2,7 @@
 ### An app built to add structure into our lives, keeping focus at the forefront.
 
 > [!WARNING]
-> ⚠️ *Built and optimized primarily for iPad Gen 10 but does work on Mac's well*
+> ⚠️ *Built and optimized primarily for iPad Gen 10 but does work on Mac's well enough*
 
 ## 🚀 Installation 
 
