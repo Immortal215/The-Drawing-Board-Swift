@@ -217,10 +217,10 @@ struct Notebook: View {
                                             
                                             Text("Create Assignment")
                                                 .foregroundStyle(.green)
-                                              //  .shadow(color: .gray, radius: 5, x: 0.0, y: 0.0)
+                                            //  .shadow(color: .gray, radius: 5, x: 0.0, y: 0.0)
                                                 .background {
                                                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                        .stroke(Color(UIColor.systemGray4), lineWidth: 5)
+                                                        .stroke(.gray, lineWidth: 2)
                                                         .background(.gray.opacity(0.1), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
                                                         .frame(width: screenWidth/7.5, height: 45)
                                                         .scaledToFit()
@@ -274,9 +274,9 @@ struct Notebook: View {
                         Button("Ok", role: .cancel) {}
                     }
                     .padding()
-                   // Divider()
-                     //   .frame(width: currentTab == "+erder" ? 0 : 300)
-                       // .padding()
+                    // Divider()
+                    //   .frame(width: currentTab == "+erder" ? 0 : 300)
+                    // .padding()
                     
                     Text(currentTab == "+erder" ? "Edit Lists Below!" : caughtUp ? "Add Objectives Here!" : "")
                         .font(.title)
@@ -294,7 +294,7 @@ struct Notebook: View {
                                         .foregroundColor(.black)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 15)
-                                                .stroke(.gray, lineWidth: 2)
+                                                .stroke(.white, lineWidth: 2)
                                             //  .frame(width: screenWidth/2.1)
                                             
                                         )
@@ -304,14 +304,14 @@ struct Notebook: View {
                                     VStack {
                                         HStack {
                                             
-                                            Text("")
-                                                .overlay(
-                                                    Image(systemName: selectDelete[index] ? "checkmark.circle.fill" : "checkmark")
-                                                        .resizable()
-                                                        .frame(width: deleted ? 0 : 75, height: deleted ? 0 : 75, alignment: .center)
-                                                        .scaleEffect(selectDelete[index] ? 1.0 : 0.5)
-                                                        .foregroundStyle(selectDelete[index] ? .red : .blue)
-                                                )
+                                            
+                                            
+                                            Image(systemName: selectDelete[index] ? "checkmark.circle.fill" : "checkmark")
+                                                .resizable()
+                                                .frame(width: deleted ? 0 : 75, height: deleted ? 0 : 75, alignment: .center)
+                                                .scaleEffect(selectDelete[index] ? 1.0 : 0.5)
+                                                .foregroundStyle(selectDelete[index] ? .red : .blue)
+                                            
                                                 .animation(.snappy(extraBounce: 0.4))
                                             // only works on mac
                                                 .onHover { hovering in
@@ -322,7 +322,7 @@ struct Notebook: View {
                                                         
                                                     }
                                                 }
-                                                .offset(x: 50)
+                                              //  .offset(x: 50)
                                                 .onChange(of: names[index]) {
                                                     selectDelete[index] = false
                                                 }
@@ -373,7 +373,7 @@ struct Notebook: View {
                                                     // title
                                                     ZStack {
                                                         TextField("\(names[index])".trimmingCharacters(in: .whitespacesAndNewlines), text: $names[index])
-                                                            .textFieldStyle(UnderlinedTextFieldStyle())
+                                                            .textFieldStyle(UnderlinedTextFieldStyle(color: Color(hex: titleColor)))
                                                             .foregroundStyle(Color(hex: titleColor))
                                                             .onChange(of: names[index]) {
                                                                 bigDic[currentTab]!["names"] = names
@@ -416,51 +416,55 @@ struct Notebook: View {
                                                             }
                                                             .fontWeight(.heavy)
                                                             .font(.largeTitle)
-                                                            .offset(x: subjects[index] != " " ? 100 : (infoArray[index] != " " ? 100 : 0) )
+                                                          //  .offset(x: subjects[index] != " " ? 100 : (infoArray[index] != " " ? 100 : 0) )
                                                             .padding()
-                                                            .fixedSize(horizontal: true, vertical: false)
+                                                            .fixedSize(horizontal: infoArray[index] != " " ? false : true, vertical: false)
+                                                            .multilineTextAlignment(infoArray[index] != " " ? .leading : subjects[index] != " " ? .leading : .center)
+                                                        // .fixedSize(horizontal: true, vertical: false)
                                                         
                                                     }
-                                                    .frame(width: infoArray[index] != " " ? screenWidth/3 : screenWidth/2, alignment: infoArray[index] != " " ? .topLeading : subjects[index] != " " ? .topLeading : .center)
+                                                    .frame(maxWidth: infoArray[index] != " " ? screenWidth/3 : screenWidth/2, alignment: .center)
                                                     
                                                     
-                                                    // info texteditor
+                                                    
+                                                    // description texteditor
                                                     if infoArray[index] != " " {
                                                         Spacer()
                                                         
                                                         HStack {
                                                             
-                                                            Button {
-                                                                infoArray[index] = infoArray[index].trimmingCharacters(in: .whitespacesAndNewlines)
-                                                                
-                                                                if infoArray[index] == "Enter new value" {
-                                                                    infoArray[index] = " "
-                                                                }
-                                                                
-                                                                
-                                                            } label: {
-                                                                ZStack {
-                                                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                                        .stroke(Color(UIColor.systemGray4), lineWidth: 2)
-                                                                        .frame(width: 30, height: 38)
-                                                                        .background(Color(hex: descriptionColor).opacity(0.1), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                                                                    
-                                                                    
-                                                                    Image(systemName: "note.text")
-                                                                        .foregroundStyle(Color(hex: descriptionColor))
-                                                                        .shadow(color: .gray, radius: 5, x: 0, y: 0)
-                                                                }
-                                                            }
-                                                            
+                                                            // button to get rid of every space
+                                                            //                                                            Button {
+                                                            //                                                                infoArray[index] = infoArray[index].trimmingCharacters(in: .whitespacesAndNewlines)
+                                                            //                                                                
+                                                            //                                                                if infoArray[index] == "Enter new value" {
+                                                            //                                                                    infoArray[index] = " "
+                                                            //                                                                }
+                                                            //                                                                
+                                                            //                                                                
+                                                            //                                                            } label: {
+                                                            //                                                                ZStack {
+                                                            //                                                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                                            //                                                                        .stroke(.white, lineWidth: 2)
+                                                            //                                                                        .frame(width: 30, height: 38)
+                                                            //                                                                        .background(Color(hex: descriptionColor).opacity(0.1), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                                                            //                                                                    
+                                                            //                                                                    
+                                                            //                                                                    Image(systemName: "note.text")
+                                                            //                                                                        .foregroundStyle(Color(hex: descriptionColor))
+                                                            //                                                                        .shadow(color: .gray, radius: 5, x: 0, y: 0)
+                                                            //                                                                }
+                                                            //                                                            }
+                                                            //                                                            
                                                             
                                                             TextEditor(text: $infoArray[index])
                                                                 .overlay {
                                                                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                                        .stroke(Color(UIColor.systemGray4), lineWidth: 2)
+                                                                        .stroke(.white, lineWidth: 2)
                                                                     
                                                                 }
                                                                 .multilineTextAlignment(.center)
-                                                                .frame(maxWidth: screenWidth/2.3, maxHeight: screenHeight/7)
+                                                            
                                                                 .foregroundStyle(Color(hex: descriptionColor))
                                                                 .scrollContentBackground(.automatic)
                                                                 .onChange(of: infoArray[index]) {
@@ -503,9 +507,10 @@ struct Notebook: View {
                                                             
                                                             
                                                         }
-                                                        .offset(x:-15)
+                                                        //  .offset(x:-15)
                                                         .padding()
-                                                        .frame(maxWidth: infoArray[index] != " " ? screenWidth/2 : 0)
+                                                        //  .frame(maxWidth: infoArray[index] != " " ? screenWidth/2 : 0)
+                                                        .frame(maxWidth: infoArray[index] != " " ? screenWidth/3 : 0, maxHeight: screenHeight/7)
                                                         
                                                     }
                                                     
@@ -518,7 +523,7 @@ struct Notebook: View {
                                                             } label : {
                                                                 ZStack {
                                                                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                                        .stroke(Color(UIColor.systemGray4), lineWidth: 2)
+                                                                        .stroke(.white, lineWidth: 2)
                                                                         .frame(width: 30, height: 38)
                                                                         .background(Color(hex: subjectColor).opacity(0.1), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
                                                                     
@@ -601,14 +606,14 @@ struct Notebook: View {
                                                         .frame(maxWidth: subjects[index] != " " ? screenWidth/3 : 0, alignment: .topTrailing)
                                                         
                                                     }
-                                                 //      .offset(y: -25)
+                                                    //      .offset(y: -25)
                                                 }
-                                                //.offset(y: -25)
+                                                //.offset(x: 100)
                                                 
                                                 Divider()
-                                                    .offset(x: 50)
+                                                 //   .offset(x: 50)
                                                     .frame(maxWidth: screenWidth/1.2, alignment: .leading)   
-                                                  
+                                                
                                                 // dates
                                                 HStack {
                                                     
@@ -623,7 +628,7 @@ struct Notebook: View {
                                                     .datePickerStyle(.compact)
                                                     .padding()
                                                     .fixedSize()
-                                                    .offset(x: 100)
+                                                
                                                     
                                                     Spacer()
                                                     Text("Created: \(dates[index])")
@@ -926,7 +931,7 @@ struct OutlinedTextFieldStyle: TextFieldStyle {
             .padding()
             .overlay {
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .stroke(Color(UIColor.systemGray4), lineWidth: 2)
+                    .stroke(.white, lineWidth: 5)
             }
     }
 }
@@ -945,10 +950,10 @@ struct RoundedTextFieldStyle: TextFieldStyle {
         }
         .padding(.vertical)
         .padding(.horizontal, 24)
-        .background(.white.opacity(0.1), in: Capsule())
+        .background(.gray.opacity(0.1), in: Capsule())
         .overlay(
             Capsule()
-                .stroke(Color(UIColor.systemGray4), lineWidth: 2)
+                .stroke(.white, lineWidth: 5)
         )
         .clipShape(Capsule())
         
@@ -956,13 +961,14 @@ struct RoundedTextFieldStyle: TextFieldStyle {
 }
 
 struct UnderlinedTextFieldStyle: TextFieldStyle {
+    @State var color : Color?
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
             .padding(.vertical, 8)
             .background(
                 VStack {
                     Spacer()
-                    Color(UIColor.systemGray4)
+                    Color(color ?? .white)
                         .frame(height: 2)
                 }
             )
@@ -985,7 +991,7 @@ struct OutlinedIconTextFieldStyle: TextFieldStyle {
         .padding()
         .overlay {
             RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .stroke(iconColor ?? Color(UIColor.systemGray4), lineWidth: 2)
+                .stroke(iconColor ?? .white, lineWidth: 5)
         }
     }
 }
