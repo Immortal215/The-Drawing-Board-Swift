@@ -208,7 +208,7 @@ struct Homepage: View {
                                             .foregroundColor(.black)
                                             .overlay(
                                                 RoundedRectangle(cornerRadius: 15)
-                                                    .stroke(.gray, lineWidth: 2)
+                                                    .stroke(.white, lineWidth: 2)
                                                     .frame(width: screenWidth/2.1)
                                                 
                                             )
@@ -296,13 +296,13 @@ struct Homepage: View {
                                                         Text(names[index].trimmingCharacters(in: .whitespacesAndNewlines))
                                                             .foregroundStyle(Color(hex: titleColor))
                                                             .padding()
-                                                            .background {
-                                                                Capsule()
-                                                                    .stroke(gradientTitle, lineWidth: 2)
-                                                                    .saturation(1.8)
-                                                            }
+//                                                            .background {
+//                                                                Capsule()
+//                                                                    .stroke(gradientTitle, lineWidth: 2)
+//                                                                    .saturation(1.8)
+//                                                            }
                                                             .font(.title2)
-                                                        //   .frame(maxWidth: screenWidth/4)
+                                                           .frame(maxWidth: screenWidth/6)
                                                         
                                                         if subjects[index] != " " {
                                                             //  Spacer(minLength: 0)
@@ -312,13 +312,13 @@ struct Homepage: View {
                                                             Text(subjects[index].trimmingCharacters(in: .whitespacesAndNewlines))
                                                                 .foregroundStyle(Color(hex: subjectColor))
                                                                 .padding()
-                                                                .background {
-                                                                    Capsule()
-                                                                        .stroke(gradientSubject, lineWidth: 2)
-                                                                    // .saturation()
-                                                                }
+//                                                                .background {
+//                                                                    Capsule()
+//                                                                        .stroke(gradientSubject, lineWidth: 2)
+//                                                                    // .saturation()
+//                                                                }
                                                                 .font(.title2)
-                                                            // .frame(maxWidth: screenWidth/4)
+                                                             .frame(maxWidth: screenWidth/6)
                                                             
                                                             
                                                         }
@@ -334,11 +334,11 @@ struct Homepage: View {
                                                                 .foregroundStyle(Color(hex: descriptionColor))
                                                                 .font(.title2)
                                                                 .padding()
-                                                                .background {
-                                                                    Capsule()
-                                                                        .stroke(gradientDescription, lineWidth: 2)
-                                                                        .saturation(1.8)
-                                                                }
+//                                                                .background {
+//                                                                    Capsule()
+//                                                                        .stroke(gradientDescription, lineWidth: 2)
+//                                                                        .saturation(1.8)
+//                                                                }
                                                                 .frame(maxWidth: screenWidth/3, maxHeight: 100)
                                                             
                                                             
@@ -512,7 +512,7 @@ struct Homepage: View {
                                         } label: {
                                             ZStack {
                                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                    .stroke(Color(UIColor.systemGray4), lineWidth: 2)
+                                                    .stroke(.white, lineWidth: 2)
                                                     .frame(width: 30, height: 38)
                                                     .background(.clear, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
                                                 
@@ -537,7 +537,7 @@ struct Homepage: View {
                                             TextEditor(text: $thoughtText)
                                                 .overlay {
                                                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                        .stroke(Color(UIColor.systemGray4), lineWidth: 2)
+                                                        .stroke(.white, lineWidth: 2)
                                                     
                                                 }
                                                 .multilineTextAlignment(.center)
@@ -582,7 +582,7 @@ struct Homepage: View {
                                         } label: {
                                             ZStack {
                                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                    .stroke(Color(UIColor.systemGray4), lineWidth: 2)
+                                                    .stroke(.white, lineWidth: 2)
                                                     .frame(width: 30, height: 38)
                                                     .background(.clear, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
                                                 
@@ -633,7 +633,7 @@ struct Homepage: View {
                                             .frame(width: drawOpened ? screenWidth/2.5 : screenWidth/2.2, height: screenHeight/3)
                                             .overlay {
                                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                    .stroke(Color(UIColor.systemGray4), lineWidth: 2)
+                                                    .stroke(.white, lineWidth: 2)
                                                 
                                             }
                                             
