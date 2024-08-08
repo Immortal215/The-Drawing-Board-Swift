@@ -5,7 +5,7 @@
 > ⚠️ *Built and optimized primarily for iPad Gen 10 but does work on Mac's well enough*
 
 > [!NOTE]
-> This is the second iteration as the first with over 250 commits was deleted
+> This is the second github as the first with over 250 commits was deleted
 
 ## 🚀 Installation 
 
