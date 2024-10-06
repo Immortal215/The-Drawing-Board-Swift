@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		7192B9182CB3001500504B8B /* Drawing Board.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drawing Board.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7192B9182CB3001500504B8B /* Drawing Board.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Drawing Board.app"; path = "/Users/sharulshah/Documents/Drawing Board/build/Debug-iphoneos/Drawing Board.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -33,16 +33,7 @@
 			isa = PBXGroup;
 			children = (
 				7192B91A2CB3001500504B8B /* Drawing Board */,
-				7192B9192CB3001500504B8B /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		7192B9192CB3001500504B8B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7192B9182CB3001500504B8B /* Drawing Board.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -95,7 +86,7 @@
 			mainGroup = 7192B90F2CB3001500504B8B;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 7192B9192CB3001500504B8B /* Products */;
+			productRefGroup = 7192B90F2CB3001500504B8B;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
