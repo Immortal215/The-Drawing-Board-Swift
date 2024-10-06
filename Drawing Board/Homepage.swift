@@ -216,7 +216,7 @@ struct Homepage: View {
                                             .foregroundColor(.black)
                                             .overlay(
                                                 RoundedRectangle(cornerRadius: 15)
-                                                    .stroke(.white, lineWidth: 2)
+                                                    .stroke(.white, lineWidth: 3)
                                                     .frame(width: screenWidth/2.1)
                                                 
                                             )
@@ -618,6 +618,10 @@ struct Homepage: View {
                                                     }
                                                 }
                                                 .padding()
+                                                .scaleEffect( drawOpened ? 1.0 : 0 )
+                                                .frame(maxWidth: drawOpened ? .infinity : 0)
+                                                .fixedSize()
+                                                
                                                 Button {
                                                     if lines.count > 1 {
                                                         lines.removeLast()
@@ -638,11 +642,12 @@ struct Homepage: View {
                                                             .shadow(color: .gray, radius: 5, x: 0, y: 0)
                                                     }
                                                 }
-                                                .padding()
+                                                .scaleEffect( drawOpened ? 1.0 : 0 )
+                                                .frame(maxWidth: drawOpened ? .infinity : 0)
+                                                .fixedSize()
                                             }
                                             .padding()
-                                            .scaleEffect( drawOpened ? 1.0 : 0 )
-                                            .frame(maxWidth: drawOpened ? .infinity : 0)
+                                            .frame(width: drawOpened ? 50 : 0)
                                             .fixedSize()
                                             
                                             ZStack {
@@ -665,7 +670,6 @@ struct Homepage: View {
                                                     currentPath.addLines(currentLine.points)
                                                     context.stroke(currentPath, with: .color(currentLine.color), lineWidth: chosenWidth)
                                                 }
-                                                
                                                 .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
                                                     .onChanged { value in
                                                         let newPoint = value.location
