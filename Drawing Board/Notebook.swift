@@ -3,7 +3,7 @@ import SwiftUI
 struct Notebook: View {
     @State var screenWidth = UIScreen.main.bounds.width
     @State var screenHeight = UIScreen.main.bounds.height
-     @AppStorage("selectedTab") var selectedTab = 1
+    @AppStorage("selectedTab") var selectedTab = 1
     @AppStorage("currentTab") var currentTab = "Basic List"
     
     @State var retrieveBigDic: [String: [String: [String]]] = UserDefaults.standard.dictionary(forKey: "DicKey") as? [String: [String: [String]]] ?? ["Basic List": ["subjects": [String()], "names": [String()], "description": [String()], "date": [String()]]]
