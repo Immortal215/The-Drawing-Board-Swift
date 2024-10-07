@@ -3,7 +3,7 @@ import SwiftUI
 struct Notebook: View {
     @State var screenWidth = UIScreen.main.bounds.width
     @State var screenHeight = UIScreen.main.bounds.height
-    
+     @AppStorage("selectedTab") var selectedTab = 1
     @AppStorage("currentTab") var currentTab = "Basic List"
     
     @State var retrieveBigDic: [String: [String: [String]]] = UserDefaults.standard.dictionary(forKey: "DicKey") as? [String: [String: [String]]] ?? ["Basic List": ["subjects": [String()], "names": [String()], "description": [String()], "date": [String()]]]
@@ -24,7 +24,7 @@ struct Notebook: View {
     
     @State var retrieveDueArray: [Date] = UserDefaults.standard.array(forKey: "due") as? [Date] ?? []
     @State var dueDates: [Date] = []
-    
+    @State var commonSub = ["English", "Math", "Science", "History"]
     @State var createTab = ""
     @State var deleteTabs = ""
     @State var deleteWarning = false
@@ -129,7 +129,11 @@ struct Notebook: View {
                                             Picker("\(subject)", selection: $subject) {
                                                 // if subject == "" {
                                                 Text("\(subject.replacingOccurrences(of: " ", with: "") != "" ? subject : "Enter Subject")").tag(subject)
-                                                
+                                                Section(header : Text("Common Subjects")) {
+                                                    ForEach(commonSub, id: \.self) { i in
+                                                        Text(i).tag(i)
+                                                    }
+                                                }
                                                 //  }
                                                 ForEach(allSubjects.keys.sorted(), id: \.self) { tab in
                                                     if tab.lowercased().hasSuffix(" list") {
@@ -583,6 +587,11 @@ struct Notebook: View {
                                                                     }   
                                                                 }
                                                                 Picker("\(subjects[index])", selection: $subjects[index]) {
+                                                                    Section(header: Text("Common Subjects")) {
+                                                                        ForEach(commonSub, id:\.self) { i in
+                                                                            Text(i).tag(i)
+                                                                        }
+                                                                    }
                                                                     ForEach(allSubjects.keys.sorted(), id: \.self) { tab in
                                                                         if tab.lowercased().hasSuffix(" list") {
                                                                             Section(header: Text("\(tab)")) {
@@ -623,7 +632,7 @@ struct Notebook: View {
                                                             }
                                                             TextField("\(subjects[index])".trimmingCharacters(in: .whitespacesAndNewlines), text: $subjects[index])
                                                                 .textFieldStyle(subjectPicker ? RoundedTextFieldStyle(iconColor: Color(hex: subjectColor)) : RoundedTextFieldStyle(icon: Image(systemName: "book.closed"), iconColor: Color(hex: subjectColor)))
-                                                               // .textFieldStyle(RoundedTextFieldStyle(iconColor: Color(hex: subjectColor)))
+                                                            // .textFieldStyle(RoundedTextFieldStyle(iconColor: Color(hex: subjectColor)))
                                                                 .onChange(of: subjects[index]) {
                                                                     
                                                                     if infoArray[index] == " " {
@@ -973,7 +982,23 @@ struct Notebook: View {
             error = false
             loadedData = true
         }
-        
+        .onChange(of: selectedTab) {
+            for index in infoArray.indices {
+                if infoArray[index] == "Enter new value" {
+                    infoArray[index] = " "
+                    bigDic[currentTab]!["description"] = infoArray
+                    
+                    
+                }
+                if subjects[index] == "Enter new value" {
+                    subjects[index] = " "
+                    bigDic[currentTab]!["subjects"] = subjects
+                    
+                    
+                }
+                UserDefaults.standard.set(bigDic, forKey: "DicKey")
+            }
+        }
         .onChange(of: currentTab) {
             deleted = false  
             if currentTab != "+erder" {
@@ -1083,21 +1108,7 @@ struct Notebook: View {
                 
             }
         }
-        for index in infoArray.indices {
-            if infoArray[index] == "Enter new value" {
-                infoArray[index] = " "
-                bigDic[currentTab]!["description"] = infoArray
-                
-                
-            }
-            if subjects[index] == "Enter new value" {
-                subjects[index] = " "
-                bigDic[currentTab]!["subjects"] = subjects
-                
-                
-            }
-            UserDefaults.standard.set(bigDic, forKey: "DicKey")
-        }
+        
     }
 }
 
