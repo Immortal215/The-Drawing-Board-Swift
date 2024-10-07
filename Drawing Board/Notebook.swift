@@ -847,6 +847,7 @@ struct Notebook: View {
                 }
             }
         }
+        
         .onAppear {
             deleted = false 
             if currentTab == "+erder" {
@@ -1081,6 +1082,21 @@ struct Notebook: View {
                 loadedData = true
                 
             }
+        }
+        for index in infoArray.indices {
+            if infoArray[index] == "Enter new value" {
+                infoArray[index] = " "
+                bigDic[currentTab]!["description"] = infoArray
+                
+                
+            }
+            if subjects[index] == "Enter new value" {
+                subjects[index] = " "
+                bigDic[currentTab]!["subjects"] = subjects
+                
+                
+            }
+            UserDefaults.standard.set(bigDic, forKey: "DicKey")
         }
     }
 }
