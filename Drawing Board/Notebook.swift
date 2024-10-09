@@ -32,7 +32,7 @@ struct Notebook: View {
     
     @AppStorage("duedatesetter") var dueDateSetter = "One Day"
     @AppStorage("dueDater") var dueDater = "07:00"
-    @AppStorage("organizedAssignments") var organizedAssignments = "Created By Descending (Recent to Oldest)"
+    @AppStorage("organizedAssignments") var organizedAssignments = "Due By Descending (Recent to Oldest)"
     
     @AppStorage("subjectcolor") var subjectColor: String = "#91E2FD"
     @AppStorage("titlecolor") var titleColor: String = "#E2FFC2"
@@ -870,8 +870,7 @@ struct Notebook: View {
             retrieveDueDic = UserDefaults.standard.dictionary(forKey: "DueDicKey") as? [String : [Date]] ?? [:]
             
             dueDic = (retrieveDueDic[currentTab] != nil ? retrieveDueDic : dueDic)
-            
-            
+            print("\(bigDic)")
             names = bigDic[currentTab]!["names"]!
             subjects = bigDic[currentTab]!["subjects"]!
             infoArray = bigDic[currentTab]!["description"]!
@@ -983,20 +982,20 @@ struct Notebook: View {
             loadedData = true
         }
         .onChange(of: selectedTab) {
-            for index in infoArray.indices {
-                if infoArray[index] == "Enter new value" {
-                    infoArray[index] = " "
-                    bigDic[currentTab]!["description"] = infoArray
-                    
-                    
+            if selectedTab == 0 {
+                for index in infoArray.indices {
+                    if infoArray[index] == "Enter new value" {
+                        infoArray[index] = " "
+                        bigDic[currentTab]!["description"] = infoArray
+                    }
+                    if subjects[index] == "Enter new value" {
+                        subjects[index] = " "
+                        bigDic[currentTab]!["subjects"] = subjects
+                        
+                        
+                    }
+                    UserDefaults.standard.set(bigDic, forKey: "DicKey")
                 }
-                if subjects[index] == "Enter new value" {
-                    subjects[index] = " "
-                    bigDic[currentTab]!["subjects"] = subjects
-                    
-                    
-                }
-                UserDefaults.standard.set(bigDic, forKey: "DicKey")
             }
         }
         .onChange(of: currentTab) {
