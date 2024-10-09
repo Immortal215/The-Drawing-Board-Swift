@@ -9,7 +9,7 @@ struct Settinger: View {
     @State var dueDaters : [String] = ["Today", "One Hour", "6 Hours", "One Day", "Two Days", "Four Days", "Five Days"]
     @AppStorage("dueDater") var dueDater = "07:00"
     @State var datedVar = Date()
-    @AppStorage("organizedAssignments") var organizedAssignments = "Created By Descending (Recent to Oldest)"
+    @AppStorage("organizedAssignments") var organizedAssignments = "Due By Descending (Recent to Oldest)"
     @State var organizationOptions : [String] = ["Created By Descending (Recent to Oldest)", "Created By Ascending (Oldest to Recent)", "Due By Descending (Recent to Oldest)", "Due By Ascending (Oldest to Recent)"]
     
     @AppStorage("pomotimer") var pomoTime = 1500
@@ -225,8 +225,8 @@ struct Settinger: View {
                                 .frame(width: screenWidth/5)
                         }
                         HStack {
-                            Text("Circle Shape Radius")
-                            Spacer()
+                            Stepper("Circle Shape Radius",value: $cornerRadius, in: 1...300, step: 10)
+                                .padding()
                             Button {
                                 cornerRadius = Int.random(in: 1...300)
                             }  label : {
@@ -350,6 +350,10 @@ struct Settinger: View {
                             }
                             // .padding(0)
                             .fixedSize()
+                            
+//                            if clearCheck {
+//                                Text("This is all your data :\n\(bigDic)")
+//                            }
                         }
                     }
                     
