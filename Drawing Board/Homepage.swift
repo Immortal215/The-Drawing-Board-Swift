@@ -363,7 +363,9 @@ struct Homepage: View {
                                                         Divider()
                                                             .frame(maxWidth: screenWidth/3)
                                                         
-                                                        Text("Due : \(dueDates[index].formatted()) ")
+                                                        
+
+                                                        Text("Due : \(dateFormatClean(str: dueDates[index])) ")
                                                             .fixedSize()
                                                         
                                                         //    Spacer()
@@ -904,4 +906,13 @@ func styleNotification(dueDate: Date, assignment: String, alarm: String) {
 struct Line {
     var points: [CGPoint]
     var color: Color = .white
+}
+
+func dateFormatClean(str : Date) -> String {
+     let dater = DateFormatter() 
+        
+     dater.dateFormat = "E, MMM d, yyyy"
+     dater.locale = Locale(identifier: "en_US_POSIX")
+    
+    return dater.string(from: str)
 }
