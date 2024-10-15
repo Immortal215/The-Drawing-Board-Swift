@@ -956,7 +956,8 @@ struct Line {
 func dateFormatClean(str : Date) -> String {
     let dater = DateFormatter() 
     
-    dater.dateFormat = "E, MMM d, yyyy"
+    dater.dateFormat = "E, MMM d, yyyy, h:mm a"
+
     dater.locale = Locale(identifier: "en_US_POSIX")
     
     return dater.string(from: str)
