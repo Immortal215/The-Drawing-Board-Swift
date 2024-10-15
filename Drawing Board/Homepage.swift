@@ -159,24 +159,47 @@ struct Homepage: View {
                 HStack {
                     // planner
                     VStack {
-                        HStack {
-                            NumberView()
-                                .clipShape(Circle())
-                                .frame(width: 30, height: 30)
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 15)
+                                .foregroundColor(.black)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(.white, lineWidth: 3)
+                                        .frame(width: screenWidth/4.3)
+                                    
+                                )
+                                .shadow(radius: 5)
+                                .frame(width: screenWidth/4.3)
                             
-                            Text("Most Urgent!")
-                                .font(.title2)
-                            Button {
-                                selectedTab = 1
-                            } label : {
+                            HStack {
+                                NumberView()
+                                    .clipShape(Circle())
+                                    .frame(width: 30, height: 30)
                                 
-                                Image(systemName: "arrow.up.forward.app")
-                                    .resizable()
-                                    .frame(width: caughtUp ? 0 : 20, height: caughtUp ? 0 : 20)
+                                 .overlay {
+                                 Circle()
+                                    .stroke(.white, lineWidth: 3)
+                                    .frame(width: 39, height: 39)
+                                   }
+                                
+                                
+                                Text("Most Urgent!")
+                                    .font(.title2)
+                                    .padding(.horizontal)
+                                
+                                Button {
+                                    selectedTab = 1
+                                } label : {
+                                    
+                                    Image(systemName: "arrow.up.forward.app")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                }
+                                
                             }
-                            
-                       
+                            .padding()
                         }
+                        .fixedSize()
                         
                         Picker("", selection: $currentTab) {
                             ForEach(Array(bigDic.keys), id: \.self) { i in
@@ -273,7 +296,7 @@ struct Homepage: View {
                                                             
                                                             UserDefaults.standard.set(bigDic, forKey: "DicKey")
                                                             UserDefaults.standard.set(dueDic, forKey: "DueDicKey")
-                                                            completed += 1
+                                                            completed += 1 
                                                             
                                                             if infoArray.isEmpty {
                                                                 selectDelete = []
@@ -370,7 +393,7 @@ struct Homepage: View {
                                                             .frame(maxWidth: screenWidth/3)
                                                         
                                                         
-
+                                                        
                                                         Text("Due : \(dateFormatClean(str: dueDates[index]))")
                                                             .fixedSize()
                                                         
@@ -915,10 +938,10 @@ struct Line {
 }
 
 func dateFormatClean(str : Date) -> String {
-     let dater = DateFormatter() 
-        
-     dater.dateFormat = "E, MMM d, yyyy"
-     dater.locale = Locale(identifier: "en_US_POSIX")
+    let dater = DateFormatter() 
+    
+    dater.dateFormat = "E, MMM d, yyyy"
+    dater.locale = Locale(identifier: "en_US_POSIX")
     
     return dater.string(from: str)
 }
