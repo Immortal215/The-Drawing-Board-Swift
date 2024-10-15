@@ -17,7 +17,7 @@
 ### [🏠 Home Screen](The%20Drawing%20Board/Homepage.swift)
 <hr>
 
-* **Shows the most urgent assignments in the list chosen! (3 most urgent)**
+* **Shows the most urgent assignments in the list chosen!**
 * **Shows your current stopwatch and Pomo for easy viewing**
 * **An ideas box is given to make sure your mind does not wander while working**
 * **A board to draw any ideas that come to mind while working**
@@ -37,7 +37,7 @@
 <hr>
 
 * **Add assignment titles, descriptions, subjects, and change the due date if necessary. (Editable afterward as well)**
-* **Delete assignments individually or delete them all at once**
+* **Check assignments individually or delete them all at once**
 * **MULTIPLE LISTS! You can create and edit separate planners for organization**
 
 > [!NOTE]
