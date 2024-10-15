@@ -165,22 +165,20 @@ struct Homepage: View {
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 15)
                                         .stroke(.white, lineWidth: 3)
-                                        .frame(width: screenWidth/4.3)
                                     
                                 )
                                 .shadow(radius: 5)
-                                .frame(width: screenWidth/4.3)
                             
                             HStack {
                                 NumberView()
                                     .clipShape(Circle())
                                     .frame(width: 30, height: 30)
                                 
-                                 .overlay {
-                                 Circle()
-                                    .stroke(.white, lineWidth: 3)
-                                    .frame(width: 39, height: 39)
-                                   }
+                                    .overlay {
+                                        Circle()
+                                            .stroke(.white, lineWidth: 3)
+                                            .frame(width: 39, height: 39)
+                                    }
                                 
                                 
                                 Text("Most Urgent!")
@@ -432,18 +430,36 @@ struct Homepage: View {
                     
                     // timer/draw/thoughts
                     VStack {
-                        HStack {
-                            Text("Timers!")
-                                .font(.title2)
-                            Button {
-                                selectedTab = 2
-                            } label : {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 15)
+                                .foregroundColor(.black)
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(.white, lineWidth: 3)
+                                    //    .frame(width: screenWidth/4.3)
+                                    
+                                }
+                                .shadow(radius: 5)
+                             //   .frame(width: screenWidth/4.3)
+                            
+                            HStack {
+                                Text("Timers!")
+                                    .font(.title2)
+                                    .padding(.trailing)
                                 
-                                Image(systemName: "arrow.up.forward.app")
-                                    .resizable()
-                                    .frame(width: progressTimePomo == pomoTime && progressTime == 0 ? 0 : 20, height: progressTimePomo == pomoTime && progressTime == 0 ? 0 : 20)
+                                Button {
+                                    selectedTab = 2
+                                } label : {
+                                    
+                                    Image(systemName: "arrow.up.forward.app")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                }
                             }
+                            .padding()
                         }
+                        .fixedSize()
+                        
                         Divider()
                             .frame(width: 400)
                         
