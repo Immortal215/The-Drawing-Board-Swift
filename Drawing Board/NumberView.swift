@@ -2,7 +2,7 @@ import SwiftUI
 
 struct NumberView: View {
     @AppStorage("completed") var completed = 0
-    @State var scale: CGFloat = 1.2
+    @State var scale: CGFloat = 0.8
     @State var backgroundColor = Color.white
     
     var body: some View {
@@ -19,9 +19,9 @@ struct NumberView: View {
                     .onChange(of: completed) { newValue in
                         // trigger scale effect on number change
                         withAnimation {
-                            scale = 1.8
+                            scale = 1.5
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                scale = 1.2
+                                scale = 0.8
                             }
                         }
                         // change background color on count update
