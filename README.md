@@ -46,7 +46,7 @@
 ### [⚙️ Settings](The%20Drawing%20Board/Settings.swift)
 <hr>
 
-* **Change organization, timing, count, color, dating, and data throughout the app**
+* **Change organization, timing, count, color, dating, data, and more throughout the app**
 
 ## 📄 Basic Example Code For Use
 
