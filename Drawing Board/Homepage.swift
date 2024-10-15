@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct Homepage: View {
-    
     @State var screenWidth = UIScreen.main.bounds.width
     @State var screenHeight = UIScreen.main.bounds.height
+    
+    @AppStorage("completed") var completed = 0
     
     @AppStorage("currentTab") var currentTab = "Basic List"
     
@@ -159,6 +160,10 @@ struct Homepage: View {
                     // planner
                     VStack {
                         HStack {
+                            NumberView()
+                                .clipShape(Circle())
+                                .frame(width: 30, height: 30)
+                            
                             Text("Most Urgent!")
                                 .font(.title2)
                             Button {
@@ -170,6 +175,7 @@ struct Homepage: View {
                                     .frame(width: caughtUp ? 0 : 20, height: caughtUp ? 0 : 20)
                             }
                             
+                       
                         }
                         
                         Picker("", selection: $currentTab) {
@@ -267,7 +273,7 @@ struct Homepage: View {
                                                             
                                                             UserDefaults.standard.set(bigDic, forKey: "DicKey")
                                                             UserDefaults.standard.set(dueDic, forKey: "DueDicKey")
-                                                            
+                                                            completed += 1
                                                             
                                                             if infoArray.isEmpty {
                                                                 selectDelete = []
@@ -365,7 +371,7 @@ struct Homepage: View {
                                                         
                                                         
 
-                                                        Text("Due : \(dateFormatClean(str: dueDates[index])) ")
+                                                        Text("Due : \(dateFormatClean(str: dueDates[index]))")
                                                             .fixedSize()
                                                         
                                                         //    Spacer()
