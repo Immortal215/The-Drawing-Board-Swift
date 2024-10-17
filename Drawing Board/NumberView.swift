@@ -62,12 +62,15 @@ struct RollingDigitView: View {
             Text("\(currentDigit)")
                 .offset(y: isRolling ? -40 : 0)
                 .opacity(isRolling ? 0 : 1)
+               // .shadow(color: .gray, radius: 5)
         }
         .onChange(of: currentDigit) { newValue in
             rollToNextDigit(newValue)
         }
+        .foregroundStyle(.black)
         .animation(.easeInOut(duration: 0.6), value: isRolling)
     }
+    
     
     func rollToNextDigit(_ newDigit: Int) {
         previousDigit = currentDigit
