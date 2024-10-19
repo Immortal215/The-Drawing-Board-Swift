@@ -859,7 +859,95 @@ struct Notebook: View {
                 }
             }
         }
-        
+        .onAppear {
+                deleted = false 
+                if currentTab == "+erder" {
+                    currentTab = "Basic List"
+                }
+                
+                retrieveBigDic = UserDefaults.standard.dictionary(forKey: "DicKey") as? [String: [String: [String]]] ?? [:]
+                
+                bigDic = (retrieveBigDic[currentTab]?["subjects"] != nil ? retrieveBigDic : bigDic )
+                
+                retrieveDueDic = UserDefaults.standard.dictionary(forKey: "DueDicKey") as? [String : [Date]] ?? [:]
+                
+                dueDic = (retrieveDueDic[currentTab] != nil ? retrieveDueDic : dueDic)
+                print("\(bigDic)")
+                names = bigDic[currentTab]!["names"]!
+                subjects = bigDic[currentTab]!["subjects"]!
+                infoArray = bigDic[currentTab]!["description"]!
+                dates = bigDic[currentTab]!["date"]!
+                dueDates = dueDic[currentTab]!
+                
+                for tab in bigDic.keys {
+                    allSubjects[tab] = []
+                    if tab.lowercased().hasSuffix(" list") {
+                        if let subjects = bigDic[tab]?["subjects"] as? [String] {
+                            allSubjects[tab] = subjects
+                        }
+                    }
+                }
+                print(allSubjects)
+                
+                selectDelete = []
+                for _ in 0..<infoArray.count {
+                    selectDelete.append(false)
+                }
+                DateFormatter().dateFormat = "M/d/yyyy, h:mm a"
+                
+                if bigDic[currentTab]?["description"] != [] && bigDic[currentTab]?["description"] != [String()] {
+                    var sortedIndices = dates.indices.sorted(by: { dates[$0] > dates[$1] })
+                    
+                    if organizedAssignments == "Due By Descending (Recent to Oldest)"{
+                        sortedIndices = dueDates.indices.sorted(by: { dueDates[$0] < dueDates[$1] })
+                        
+                    } else if organizedAssignments == "Due By Ascending (Oldest to Recent)" {
+                        sortedIndices = dueDates.indices.sorted(by: { dueDates[$0] > dueDates[$1] })
+                        
+                    } else if organizedAssignments == "Created By Descending (Recent to Oldest)"{
+                        sortedIndices = dates.indices.sorted(by: { dates[$0] > dates[$1] })
+                        
+                    } else if organizedAssignments == "Created By Ascending (Oldest to Recent)"  {
+                        sortedIndices = dates.indices.sorted(by: { dates[$0] < dates[$1] })
+                    }
+                    
+                    subjects = sortedIndices.map { bigDic[currentTab]!["subjects"]![$0] }
+                    names = sortedIndices.map { bigDic[currentTab]!["names"]![$0] }
+                    infoArray = sortedIndices.map { bigDic[currentTab]!["description"]![$0] }
+                    dates = sortedIndices.map { bigDic[currentTab]!["date"]![$0] }
+                    dueDates = sortedIndices.map { dueDic[currentTab]![$0] }
+                    selectDelete = sortedIndices.map { selectDelete[$0]}
+                    
+                    bigDic[currentTab]!["subjects"] = subjects
+                    bigDic[currentTab]!["description"] = infoArray
+                    bigDic[currentTab]!["names"] =  names
+                    bigDic[currentTab]!["date"] = dates
+                    dueDic[currentTab]! = dueDates 
+                    UserDefaults.standard.set(bigDic, forKey: "DicKey")
+                    UserDefaults.standard.set(dueDic, forKey: "DueDicKey")
+                    caughtUp = false 
+                } else {
+                    caughtUp = true
+                }
+                error = false
+                loadedData = true
+                
+                if selectedTab == 0 {
+                    for index in infoArray.indices {
+                        if infoArray[index] == "Enter new value" {
+                            infoArray[index] = " "
+                            bigDic[currentTab]!["description"] = infoArray
+                        }
+                        if subjects[index] == "Enter new value" {
+                            subjects[index] = " "
+                            bigDic[currentTab]!["subjects"] = subjects
+                            
+                            
+                        }
+                        UserDefaults.standard.set(bigDic, forKey: "DicKey")
+                    }
+                }
+        }
         .onChange(of: selectedTab) {
             deleted = false 
             if currentTab == "+erder" {
