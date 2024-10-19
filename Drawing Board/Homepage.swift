@@ -439,7 +439,7 @@ struct Homepage: View {
                                     
                                 }
                                 .shadow(radius: 5)
-                             //   .frame(width: screenWidth/4.3)
+                            //   .frame(width: screenWidth/4.3)
                             
                             HStack {
                                 Text("Timers!")
@@ -756,6 +756,79 @@ struct Homepage: View {
             .animation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.3))
             
         }
+        .onAppear {
+            if thoughtText != "" {
+                thoughtsOpened = true
+            }
+            
+            if currentTab == "+erder" {
+                currentTab = "Basic List"
+            }
+            
+            retrieveBigDic = UserDefaults.standard.dictionary(forKey: "DicKey") as? [String: [String: [String]]] ?? [:]
+            retrieveDueDic = UserDefaults.standard.dictionary(forKey: "DueDicKey") as? [String : [Date]] ?? [:]
+            
+            bigDic = (retrieveBigDic[currentTab]?["subjects"] != nil ? retrieveBigDic : bigDic )
+            dueDic = (retrieveDueDic[currentTab] != nil ? retrieveDueDic : dueDic)
+            
+            
+            names = bigDic[currentTab]!["names"]!
+            subjects = bigDic[currentTab]!["subjects"]!
+            infoArray = bigDic[currentTab]!["description"]!
+            dates = bigDic[currentTab]!["date"]!
+            dueDates = dueDic[currentTab]!
+            
+            selectDelete = []
+            selectDelete = Array(repeating: false, count: infoArray.count)
+            DateFormatter().dateFormat = "M/d/yyyy, h:mm a"
+            
+            
+            if bigDic[currentTab]?["description"] != [] && bigDic[currentTab]?["description"] != [String()] {
+                
+                
+                var sortedIndices = dueDates.indices.sorted(by: { dueDates[$0] < dueDates[$1] })
+                
+                // rearrange all arrays based on sorted indices
+                subjects = sortedIndices.map { bigDic[currentTab]!["subjects"]![$0] }
+                names = sortedIndices.map { bigDic[currentTab]!["names"]![$0] }
+                infoArray = sortedIndices.map { bigDic[currentTab]!["description"]![$0] }
+                dates = sortedIndices.map { bigDic[currentTab]!["date"]![$0] }
+                dueDates = sortedIndices.map { dueDic[currentTab]![$0] }
+                selectDelete = sortedIndices.map { selectDelete[$0]}
+                
+                bigDic[currentTab]!["subjects"] = subjects
+                bigDic[currentTab]!["description"] = infoArray
+                bigDic[currentTab]!["names"] =  names
+                bigDic[currentTab]!["date"] = dates
+                dueDic[currentTab]! = dueDates 
+                UserDefaults.standard.set(bigDic, forKey: "DicKey")
+                UserDefaults.standard.set(dueDic, forKey: "DueDicKey")
+                caughtUp = false
+                
+                
+            } else {
+                caughtUp = true
+                
+            }
+            
+            error = false
+            loadedData = true
+            
+            
+            if pomoOpened == false {
+                progressTimePomo = pomoTime
+                pomoOpened = true
+            }
+            
+            progressTimePomo = progressTimePomo
+            
+            if opened == false {
+                progressTime = 0
+                opened = true
+            }
+            progressTime = progressTime
+        
+        }
         .onChange(of: selectedTab) {
             
             if thoughtText != "" {
@@ -785,26 +858,26 @@ struct Homepage: View {
             
             
             if bigDic[currentTab]?["description"] != [] && bigDic[currentTab]?["description"] != [String()] {
-            
-             
-                    var sortedIndices = dueDates.indices.sorted(by: { dueDates[$0] < dueDates[$1] })
-                    
-                    // rearrange all arrays based on sorted indices
-                    subjects = sortedIndices.map { bigDic[currentTab]!["subjects"]![$0] }
-                    names = sortedIndices.map { bigDic[currentTab]!["names"]![$0] }
-                    infoArray = sortedIndices.map { bigDic[currentTab]!["description"]![$0] }
-                    dates = sortedIndices.map { bigDic[currentTab]!["date"]![$0] }
-                    dueDates = sortedIndices.map { dueDic[currentTab]![$0] }
-                    selectDelete = sortedIndices.map { selectDelete[$0]}
-                    
-                    bigDic[currentTab]!["subjects"] = subjects
-                    bigDic[currentTab]!["description"] = infoArray
-                    bigDic[currentTab]!["names"] =  names
-                    bigDic[currentTab]!["date"] = dates
-                    dueDic[currentTab]! = dueDates 
-                    UserDefaults.standard.set(bigDic, forKey: "DicKey")
-                    UserDefaults.standard.set(dueDic, forKey: "DueDicKey")
-                     caughtUp = false
+                
+                
+                var sortedIndices = dueDates.indices.sorted(by: { dueDates[$0] < dueDates[$1] })
+                
+                // rearrange all arrays based on sorted indices
+                subjects = sortedIndices.map { bigDic[currentTab]!["subjects"]![$0] }
+                names = sortedIndices.map { bigDic[currentTab]!["names"]![$0] }
+                infoArray = sortedIndices.map { bigDic[currentTab]!["description"]![$0] }
+                dates = sortedIndices.map { bigDic[currentTab]!["date"]![$0] }
+                dueDates = sortedIndices.map { dueDic[currentTab]![$0] }
+                selectDelete = sortedIndices.map { selectDelete[$0]}
+                
+                bigDic[currentTab]!["subjects"] = subjects
+                bigDic[currentTab]!["description"] = infoArray
+                bigDic[currentTab]!["names"] =  names
+                bigDic[currentTab]!["date"] = dates
+                dueDic[currentTab]! = dueDates 
+                UserDefaults.standard.set(bigDic, forKey: "DicKey")
+                UserDefaults.standard.set(dueDic, forKey: "DueDicKey")
+                caughtUp = false
                 
                 
             } else {
@@ -855,25 +928,25 @@ struct Homepage: View {
                 
                 
                 if bigDic[currentTab]?["description"] != [] && bigDic[currentTab]?["description"] != [String()] {
- 
-                        var sortedIndices = dueDates.indices.sorted(by: { dueDates[$0] < dueDates[$1] })
-                        
-                        subjects = sortedIndices.map { bigDic[currentTab]!["subjects"]![$0] }
-                        names = sortedIndices.map { bigDic[currentTab]!["names"]![$0] }
-                        infoArray = sortedIndices.map { bigDic[currentTab]!["description"]![$0] }
-                        dates = sortedIndices.map { bigDic[currentTab]!["date"]![$0] }
-                        dueDates = sortedIndices.map { dueDic[currentTab]![$0] }
-                        selectDelete = sortedIndices.map { selectDelete[$0]}
-                        
-                        bigDic[currentTab]!["subjects"] = subjects
-                        bigDic[currentTab]!["description"] = infoArray
-                        bigDic[currentTab]!["names"] =  names
-                        bigDic[currentTab]!["date"] = dates
-                        dueDic[currentTab]! = dueDates 
-                        UserDefaults.standard.set(bigDic, forKey: "DicKey")
-                        UserDefaults.standard.set(dueDic, forKey: "DueDicKey")
                     
-                     caughtUp = false
+                    var sortedIndices = dueDates.indices.sorted(by: { dueDates[$0] < dueDates[$1] })
+                    
+                    subjects = sortedIndices.map { bigDic[currentTab]!["subjects"]![$0] }
+                    names = sortedIndices.map { bigDic[currentTab]!["names"]![$0] }
+                    infoArray = sortedIndices.map { bigDic[currentTab]!["description"]![$0] }
+                    dates = sortedIndices.map { bigDic[currentTab]!["date"]![$0] }
+                    dueDates = sortedIndices.map { dueDic[currentTab]![$0] }
+                    selectDelete = sortedIndices.map { selectDelete[$0]}
+                    
+                    bigDic[currentTab]!["subjects"] = subjects
+                    bigDic[currentTab]!["description"] = infoArray
+                    bigDic[currentTab]!["names"] =  names
+                    bigDic[currentTab]!["date"] = dates
+                    dueDic[currentTab]! = dueDates 
+                    UserDefaults.standard.set(bigDic, forKey: "DicKey")
+                    UserDefaults.standard.set(dueDic, forKey: "DueDicKey")
+                    
+                    caughtUp = false
                 } else {
                     caughtUp = true
                     
@@ -955,7 +1028,7 @@ func dateFormatClean(str : Date) -> String {
     let dater = DateFormatter() 
     
     dater.dateFormat = "E, MMM / d / yyyy, h:mm a"
-
+    
     dater.locale = Locale(identifier: "en_US_POSIX")
     
     return dater.string(from: str)
