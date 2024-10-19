@@ -7,7 +7,6 @@ struct Homepage: View {
     @AppStorage("completed") var completed = 0
     
     @AppStorage("currentTab") var currentTab = "Basic List"
-    
     @State var retrieveBigDic: [String: [String: [String]]] = UserDefaults.standard.dictionary(forKey: "DicKey") as? [String: [String: [String]]] ?? ["Basic List": ["subjects": [String()], "names": [String()], "description": [String()], "date": [String()]]]
     @State var bigDic: [String: [String: [String]]] = ["Basic List": ["subjects": [String()], "names": [String()], "description": [String()], "date": [String()]]]
     
@@ -757,7 +756,8 @@ struct Homepage: View {
             .animation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.3))
             
         }
-        .onAppear {
+        .onChange(of: selectedTab) {
+            
             if thoughtText != "" {
                 thoughtsOpened = true
             }
@@ -785,8 +785,8 @@ struct Homepage: View {
             
             
             if bigDic[currentTab]?["description"] != [] && bigDic[currentTab]?["description"] != [String()] {
-                caughtUp = false
-                Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in 
+            
+             
                     var sortedIndices = dueDates.indices.sorted(by: { dueDates[$0] < dueDates[$1] })
                     
                     // rearrange all arrays based on sorted indices
@@ -804,7 +804,7 @@ struct Homepage: View {
                     dueDic[currentTab]! = dueDates 
                     UserDefaults.standard.set(bigDic, forKey: "DicKey")
                     UserDefaults.standard.set(dueDic, forKey: "DueDicKey")
-                }
+                     caughtUp = false
                 
                 
             } else {
@@ -855,10 +855,7 @@ struct Homepage: View {
                 
                 
                 if bigDic[currentTab]?["description"] != [] && bigDic[currentTab]?["description"] != [String()] {
-                    Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
-                        caughtUp = false
-                        
-                        
+ 
                         var sortedIndices = dueDates.indices.sorted(by: { dueDates[$0] < dueDates[$1] })
                         
                         subjects = sortedIndices.map { bigDic[currentTab]!["subjects"]![$0] }
@@ -875,7 +872,8 @@ struct Homepage: View {
                         dueDic[currentTab]! = dueDates 
                         UserDefaults.standard.set(bigDic, forKey: "DicKey")
                         UserDefaults.standard.set(dueDic, forKey: "DueDicKey")
-                    }
+                    
+                     caughtUp = false
                 } else {
                     caughtUp = true
                     
