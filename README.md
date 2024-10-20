@@ -48,8 +48,11 @@
 
 * **Change organization, timing, count, color, dating, data, and more throughout the app**
 
-## 📄 Basic Example Code For Use
+## 🎥 App Video
 
+> https://www.canva.com/design/DAGUIYnazmQ/B6qd-sWMUcbexiiaCnhmcQ/watch?utm_content=DAGUIYnazmQ&utm_campaign=designshare&utm_medium=link&utm_source=editor
+
+## 📄 Basic Example Code For Use
 Here's an example snippet of how you might configure a basic timer in SwiftUI:
 
 ```swift
