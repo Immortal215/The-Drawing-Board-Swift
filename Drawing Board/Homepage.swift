@@ -992,8 +992,7 @@ func foregroundStyler(dueDate: Date, assignment: String) -> Color {
             return Color.orange
         }
     } else {
-        return Color.green
-        
+        return Color.green 
     }
 }
 
