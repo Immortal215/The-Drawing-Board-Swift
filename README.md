@@ -48,7 +48,7 @@
 
 * **Change organization, timing, count, color, dating, data, and more throughout the app**
 
-## 🎥 App Video
+## 🎥 App Video (Last Updated Oct 20)
 
 > https://www.canva.com/design/DAGUIYnazmQ/B6qd-sWMUcbexiiaCnhmcQ/watch?utm_content=DAGUIYnazmQ&utm_campaign=designshare&utm_medium=link&utm_source=editor
 
