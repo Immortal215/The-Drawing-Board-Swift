@@ -208,7 +208,7 @@ struct Homepage: View {
                         .pickerStyle(.menu)
                         .fixedSize()
                         
-                        Divider()
+                       // Divider()
                             .frame(width: 400)
                         
                         Button {
@@ -459,8 +459,8 @@ struct Homepage: View {
                         }
                         .fixedSize()
                         
-                        Divider()
-                            .frame(width: 400)
+                      //  Divider()
+                          //  .frame(width: 400)
                         
                         Button {
                             selectedTab = 2
@@ -992,7 +992,8 @@ func foregroundStyler(dueDate: Date, assignment: String) -> Color {
             return Color.orange
         }
     } else {
-        return Color.green 
+        return Color.green
+        
     }
 }
 
