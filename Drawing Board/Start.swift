@@ -1,4 +1,5 @@
 import SwiftUI
+import Pow
 
 struct Start: View {
     @State var starter = true
@@ -18,7 +19,7 @@ struct Start: View {
                         .rotationEffect(.degrees(starter ? 0.0 : 15.0))
                         .scaleEffect(starter ? 1.3 : 1.0)
                         .animation(starter ? .easeIn(duration: 0) : .bouncy(duration: 1, extraBounce: 0.3) )
-                        
+                    
                     Text("The Drawing Board")
                         .font(.custom("", fixedSize: 100))
                         .foregroundStyle(.white)
@@ -51,7 +52,7 @@ struct Start: View {
             }
             .frame(width: starter ? 0 : 500, height: starter ? 0 : 100, alignment: .center)
             .padding(starter ? 0 : 20)
-
+            
         }
         .onAppear {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
@@ -59,6 +60,7 @@ struct Start: View {
             }
             timered = false
             timeredStart = false 
+
         }
     }
 }
