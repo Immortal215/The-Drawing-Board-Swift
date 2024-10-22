@@ -1,4 +1,5 @@
 import SwiftUI
+import Pow
 
 struct NumberView: View {
     @AppStorage("completed") var completed = 0
@@ -17,6 +18,7 @@ struct NumberView: View {
                         RollingDigitView(currentDigit: getDigit(at: index, num: completed))
                             .padding(-8)
                             .padding(.horizontal, 1)
+                        
                     }
                 }
                 .offset(x: 3)
