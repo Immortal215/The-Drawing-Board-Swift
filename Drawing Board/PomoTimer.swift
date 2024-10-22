@@ -1,5 +1,6 @@
 import SwiftUI
 import UserNotifications
+import Pow
 
 struct Pomo: View {
     @State var screenWidth = UIScreen.main.bounds.width
@@ -46,6 +47,7 @@ struct Pomo: View {
     var timerPomo: Timer {
         
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            
             if timered != true || timeredStart != true {
                 if progressTimePomo > 0 {
                     progressTimePomo -= 1
@@ -90,7 +92,6 @@ struct Pomo: View {
     }
     
     var secondsPomo: String {
-        
         let time = progressTimePomo % 60
         return time < 10 ? "0\(time)" : "\(time)"
     }
@@ -336,7 +337,9 @@ struct Pomo: View {
                 opened = true
             }
             progressTime = progressTime
+           
             endString = myTimerPomo?.isValid ?? false ? Date(timeIntervalSinceNow: Double(progressTimePomo)).formatted(date: .omitted, time: .shortened) : "??:??"
+            
         }
         
         .onChange(of: pomoTime) {
@@ -364,7 +367,6 @@ func scheduleTimeBasedNotification(title: String, body: String, sound: UNNotific
     
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
         if granted {
-            
             print("Permission granted")
             
             let content = UNMutableNotificationContent()
