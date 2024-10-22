@@ -11,6 +11,11 @@
 
 > [!IMPORTANT]
 > 🛠️ *Use Playgrounds or an Xcode project folder to run on your home device, will soon be available on the app store*
+>
+>  Download the following dependencies :
+
+* https://github.com/EmergeTools/Pow.git
+* https://github.com/omaralbeik/Drops.git
 
 ## ✨ Features 
 
