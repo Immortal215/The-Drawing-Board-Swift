@@ -359,7 +359,7 @@ struct Settinger: View {
                     }
                     
                     DisclosureGroup("Info") {
-                                Text("Credits : Sharul Shah, Stack Overflow, Medium, Apple Engineers, Apple, Hacking With Swift, Chat-Gbt, Friends")
+                                Text("Credits : Sharul Shah, Stack Overflow, Medium, Apple Engineers, Apple, Hacking With Swift, Chat-GPT, Friends")
                                 Text("Package Dependencies : Pow, Drops")
                             }
                             .font(.footnote)
