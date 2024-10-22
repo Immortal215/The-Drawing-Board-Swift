@@ -358,17 +358,20 @@ struct Settinger: View {
                         }
                     }
                     
-                    
-                    Text("Credits : Sharul Shah, Stack Overflow, Medium, Apple Engineers, Apple, Hacking With Swift, Chat-Gbt, Friends") 
-                        .font(.footnote)
-                        .foregroundStyle(.blue)
-                        .shadow(color: .gray, radius: 10)
+                    DisclosureGroup("Info") {
+                                Text("Credits : Sharul Shah, Stack Overflow, Medium, Apple Engineers, Apple, Hacking With Swift, Chat-Gbt, Friends")
+                                Text("Package Dependencies : Pow, Drops")
+                            }
+                            .font(.footnote)
+                            .foregroundStyle(.blue)
+                            .shadow(color: .gray, radius: 10)
+                 
                 }
                 .frame(width: screenWidth/1.3)
-                
+                Spacer()
+                    .frame(height: 50)
             }
         }
-        .animation(.bouncy(duration: 1))
         .onAppear {
             formatter.dateFormat = "HH:mm"
             if let time = formatter.date(from: dueDater) {
