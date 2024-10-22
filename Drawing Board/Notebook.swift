@@ -1,4 +1,5 @@
 import SwiftUI 
+import Pow
 
 struct Notebook: View {
     @State var screenWidth = UIScreen.main.bounds.width
