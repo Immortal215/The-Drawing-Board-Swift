@@ -1010,10 +1010,9 @@ func styleNotification(dueDate: Date, assignment: String, alarm: String) {
     Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
         if dueDate < Date().addingTimeInterval(86400) {
             if dueDate < Date().addingTimeInterval(3600) && number == 1 {
-                
                 scheduleTimeBasedNotification(title: "\(assignment) is due in less than one hour!", body: "", sound: UNNotificationSound(named: UNNotificationSoundName(rawValue: alarm)))
                 number += 1
-                if dueDate == Date() && number == 2{
+                if dueDate <= Date() && number == 2 {
                     scheduleTimeBasedNotification(title: "\(assignment) is due now!", body: "", sound: UNNotificationSound(named: UNNotificationSoundName(rawValue: alarm)))
                     number += 1
                 }
