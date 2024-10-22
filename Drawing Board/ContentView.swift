@@ -1,4 +1,5 @@
 import SwiftUI
+import Pow
 
 struct ContentView: View {
     @AppStorage("selectedTab") var selectedTab = 1
