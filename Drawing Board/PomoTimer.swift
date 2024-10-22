@@ -164,11 +164,11 @@ struct Pomo: View {
                                         .frame(width:200, height:100)
                                 }
                             }
-                     
+                            
                         }
                         Spacer()
                     }
-                        .frame(width: screenWidth/2)
+                    .frame(width: screenWidth/2)
                     Spacer()
                     
                     Spacer()
@@ -247,7 +247,7 @@ struct Pomo: View {
                         
                         Spacer()
                         VStack {
-                         
+                            
                             HStack {
                                 Button {
                                     if timeredStart != true {
@@ -269,28 +269,6 @@ struct Pomo: View {
                                     
                                 }
                                 .padding()
-                                Spacer()
-                                Button {
-                                    timered = true
-                                    stopTimer()
-                                    
-                                } label: {
-                                    Circle()
-                                        .stroke(.red, lineWidth: 5)
-                                        .opacity(0.6)
-                                    
-                                        .overlay(
-                                            Text("Stop")
-                                                .font(.custom("", fixedSize: 25))
-                                                .foregroundStyle(.white)
-                                        )
-                                        .frame(width:100, height:100)
-                                }
-                                .padding()
-                            }
-                            .padding()
-                          
-                             
                                 Button {
                                     timered = true
                                     stopTimer()
@@ -315,8 +293,32 @@ struct Pomo: View {
                                         .offset(y: progressTimePomo != pomoTime ? 0 : -10)
                                 }
                                 .animation(.spring(duration: 1, bounce: 0.3, blendDuration: 0.3))
+                                .padding()
+                                
+                                Button {
+                                    timered = true
+                                    stopTimer()
+                                    
+                                } label: {
+                                    Circle()
+                                        .stroke(.red, lineWidth: 5)
+                                        .opacity(0.6)
+                                    
+                                        .overlay(
+                                            Text("Stop")
+                                                .font(.custom("", fixedSize: 25))
+                                                .foregroundStyle(.white)
+                                        )
+                                        .frame(width:100, height:100)
+                                }
+                                .padding()
+                            }
+                            .padding()
                             
-                        Spacer()
+                            
+                            
+                            
+                            Spacer()
                         }
                     }
                     .frame(width: screenWidth/2)
@@ -338,7 +340,7 @@ struct Pomo: View {
                 opened = true
             }
             progressTime = progressTime
-           
+            
             endString = myTimerPomo?.isValid ?? false ? Date(timeIntervalSinceNow: Double(progressTimePomo)).formatted(date: .omitted, time: .shortened) : "??:??"
             
         }
