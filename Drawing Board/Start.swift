@@ -6,6 +6,7 @@ struct Start: View {
     @AppStorage("currentTab") var currentTab = "Basic List"
     @AppStorage("timered") var timered = false
     @AppStorage("timeredStart") var timeredStart = false
+
     
     var body: some View {
         NavigationStack {
@@ -26,7 +27,13 @@ struct Start: View {
                         .shadow(color: .gray, radius: 5, x: 0.0, y: 0.0)
                     
                 }
-                
+                .conditionalEffect(
+                    .repeat(
+                        .shine(angle: .degrees(-45), duration: 2.0),
+                        every: 1.5
+                    ),
+                    condition: starter
+                )
             }
             
             Divider()
@@ -48,10 +55,18 @@ struct Start: View {
                             .offset(x: 0, y: starter ? -100 : 0)
                             .animation(.bouncy(duration: 1, extraBounce: 0.1))
                     )
+                   
                 
             }
             .frame(width: starter ? 0 : 500, height: starter ? 0 : 100, alignment: .center)
             .padding(starter ? 0 : 20)
+            .conditionalEffect(
+                .repeat(
+                    .glow(color: .white, radius: 10),
+                    every: 1.5
+                ),
+                condition: !starter
+            )
             
         }
         .onAppear {
