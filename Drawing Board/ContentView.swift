@@ -37,18 +37,25 @@ struct ContentView: View {
             
             VStack {
                 Spacer()
-                HStack {
+                ZStack {
                     if tabStyle {
-                        TabBarButton(image: "house.fill", index: 0, labelr: "Home")
-                            .padding(.horizontal, 100)
-                        TabBarButton(image: "text.book.closed.fill", index: 1, labelr: "Planner")
-                            .padding(.horizontal, 100)
-                        TabBarButton(image: "clock", index: 2, labelr: "Timer / Pomo")
-                            .padding(.horizontal, 100)
-                        TabBarButton(image: "gear", index: 3, labelr: "Settings")
-                            .padding(.horizontal, 100)
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(height: 60)
+                        .foregroundStyle(.black)
+                        .shadow(color:.gray, radius: 5)
+                        .fixedSize(horizontal: false, vertical: true)
+                    HStack {
+                       
+                            TabBarButton(image: "house.fill", index: 0, labelr: "Home")
+                                .padding(.horizontal, 100)
+                            TabBarButton(image: "text.book.closed.fill", index: 1, labelr: "Planner")
+                                .padding(.horizontal, 100)
+                            TabBarButton(image: "clock", index: 2, labelr: "Timer / Pomo")
+                                .padding(.horizontal, 100)
+                            TabBarButton(image: "gear", index: 3, labelr: "Settings")
+                                .padding(.horizontal, 100)
+                        }
                     }
-                    
                 }
                 .padding()
                 
@@ -68,18 +75,20 @@ struct TabBarButton: View {
         Button {
             selectedTab = index
         } label: {
-        
-            VStack {
-                Image(systemName: image)
-                    .font(.system(size: 24))
-                    .rotationEffect(.degrees(selectedTab == index ? 10.0 : 0.0))
+            ZStack {
+              
+                VStack {
+                    Image(systemName: image)
+                        .font(.system(size: 24))
+                        .rotationEffect(.degrees(selectedTab == index ? 10.0 : 0.0))
                     
-                Text(labelr)
-                    .font(.caption)
-                    .rotationEffect(.degrees(selectedTab == index ? -5.0 : 0.0))
+                    Text(labelr)
+                        .font(.caption)
+                        .rotationEffect(.degrees(selectedTab == index ? -5.0 : 0.0))
+                }
+                .offset(y: selectedTab == index ? -20 : 0.0 )
+                .foregroundColor(selectedTab == index ? .blue : .gray)
             }
-            .offset(y: selectedTab == index ? -10 : 0.0 )
-            .foregroundColor(selectedTab == index ? .blue : .gray)
         }
         .shadow(color: .gray, radius: 5)
         .animation(.bouncy(duration: 1, extraBounce: 0.3))
