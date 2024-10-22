@@ -6,8 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		71AEDA0B2CC85087007411AE /* Pow in Frameworks */ = {isa = PBXBuildFile; productRef = 71AEDA0A2CC85087007411AE /* Pow */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		7192B9182CB3001500504B8B /* Drawing Board.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Drawing Board.app"; path = "/Users/sharulshah/Documents/Drawing Board/build/Debug-iphoneos/Drawing Board.app"; sourceTree = "<absolute>"; };
+		71AED9ED2CC85013007411AE /* Drawing Board.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drawing Board.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71AEDA0B2CC85087007411AE /* Pow in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,6 +38,7 @@
 			isa = PBXGroup;
 			children = (
 				7192B91A2CB3001500504B8B /* Drawing Board */,
+				71AED9ED2CC85013007411AE /* Drawing Board.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,9 +62,10 @@
 			);
 			name = "Drawing Board";
 			packageProductDependencies = (
+				71AEDA0A2CC85087007411AE /* Pow */,
 			);
 			productName = "Drawing Board";
-			productReference = 7192B9182CB3001500504B8B /* Drawing Board.app */;
+			productReference = 71AED9ED2CC85013007411AE /* Drawing Board.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,6 +92,9 @@
 			);
 			mainGroup = 7192B90F2CB3001500504B8B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				71AEDA092CC85087007411AE /* XCRemoteSwiftPackageReference "Pow" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7192B90F2CB3001500504B8B;
 			projectDirPath = "";
@@ -315,6 +325,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		71AEDA092CC85087007411AE /* XCRemoteSwiftPackageReference "Pow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/EmergeTools/Pow.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		71AEDA0A2CC85087007411AE /* Pow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71AEDA092CC85087007411AE /* XCRemoteSwiftPackageReference "Pow" */;
+			productName = Pow;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7192B9102CB3001500504B8B /* Project object */;
 }
