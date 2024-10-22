@@ -1,4 +1,5 @@
 import SwiftUI
+import Pow
 
 struct Homepage: View {
     @State var screenWidth = UIScreen.main.bounds.width
@@ -169,9 +170,15 @@ struct Homepage: View {
                                 .shadow(radius: 5)
                             
                             HStack {
+                                
                                 NumberView()
                                     .clipShape(Circle())
                                     .frame(width: 30, height: 30)
+                                    .changeEffect(
+                                        .rise(origin: UnitPoint(x: 0.75, y: 0.25)) {
+                                            Text("+1")
+                                                .foregroundStyle(Color(hue: Double(completed % 360) / 360.0, saturation: 0.5, brightness: 0.9))
+                                    }, value: completed) 
                                 
                                     .overlay {
                                         Circle()
