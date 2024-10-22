@@ -1,6 +1,7 @@
 import SwiftUI
 import UserNotifications
 import Pow
+import Drops
 
 struct Pomo: View {
     @State var screenWidth = UIScreen.main.bounds.width
@@ -368,6 +369,20 @@ func scheduleTimeBasedNotification(title: String, body: String, sound: UNNotific
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
         if granted {
             print("Permission granted")
+            
+            let drop = Drop(
+                title: title,
+                subtitle: body,
+                icon: UIImage(systemName: "star.fill"),
+                action: .init {
+                    print("Drop tapped")
+                    Drops.hideCurrent()
+                },
+                position: .top,
+                duration: 10.0,
+                accessibility: "Alert: Title, Subtitle"
+            )
+            Drops.show(drop)
             
             let content = UNMutableNotificationContent()
             content.title = title

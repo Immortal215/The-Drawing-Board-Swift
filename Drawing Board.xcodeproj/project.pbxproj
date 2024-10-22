@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		71AEDA0B2CC85087007411AE /* Pow in Frameworks */ = {isa = PBXBuildFile; productRef = 71AEDA0A2CC85087007411AE /* Pow */; };
+		71AEDA0E2CC851EC007411AE /* Drops in Frameworks */ = {isa = PBXBuildFile; productRef = 71AEDA0D2CC851EC007411AE /* Drops */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71AEDA0B2CC85087007411AE /* Pow in Frameworks */,
+				71AEDA0E2CC851EC007411AE /* Drops in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +65,7 @@
 			name = "Drawing Board";
 			packageProductDependencies = (
 				71AEDA0A2CC85087007411AE /* Pow */,
+				71AEDA0D2CC851EC007411AE /* Drops */,
 			);
 			productName = "Drawing Board";
 			productReference = 71AED9ED2CC85013007411AE /* Drawing Board.app */;
@@ -94,6 +97,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				71AEDA092CC85087007411AE /* XCRemoteSwiftPackageReference "Pow" */,
+				71AEDA0C2CC851EC007411AE /* XCRemoteSwiftPackageReference "Drops" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7192B90F2CB3001500504B8B;
@@ -335,6 +339,14 @@
 				minimumVersion = 1.0.4;
 			};
 		};
+		71AEDA0C2CC851EC007411AE /* XCRemoteSwiftPackageReference "Drops" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/omaralbeik/Drops";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -342,6 +354,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 71AEDA092CC85087007411AE /* XCRemoteSwiftPackageReference "Pow" */;
 			productName = Pow;
+		};
+		71AEDA0D2CC851EC007411AE /* Drops */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71AEDA0C2CC851EC007411AE /* XCRemoteSwiftPackageReference "Drops" */;
+			productName = Drops;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
