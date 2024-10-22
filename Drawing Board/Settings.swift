@@ -1,4 +1,5 @@
 import SwiftUI
+import Pow
 
 struct Settinger: View {
     
