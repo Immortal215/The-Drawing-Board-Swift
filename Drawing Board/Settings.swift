@@ -35,6 +35,7 @@ struct Settinger: View {
     @State var hexDescriptionColor : Color = Color.white
     
     @AppStorage("chosenWidth") var chosenWidth = 5.0
+    @AppStorage("chosenOpacity") var chosenOpacity = 0.8
     
     @AppStorage("urgentCount") var urgentCount = 3
     @State var clear = false 
@@ -60,24 +61,26 @@ struct Settinger: View {
                 Form {
                     //planner
                     Section("Planner") {
-                        HStack {
-                            Text("Base Due Date Setting")
-                            
-                            Picker("",selection: $dueDateSetter) {
-                                ForEach(dueDaters, id: \.self) { i in
-                                    Text(i).tag(i)
+                        LabeledContent {
+                            HStack {
+                                Picker("", selection: $dueDateSetter) {
+                                    ForEach(dueDaters, id: \.self) { i in
+                                        Text(i).tag(i)
+                                    }
                                 }
+                                
+                                DatePicker("", selection: $datedVar, displayedComponents: [.hourAndMinute])
+                                    .onChange(of: datedVar) {
+                                        dueDater = datedVar.formatted(date: .omitted, time: .shortened).replacingOccurrences(of: "AM", with: "").replacingOccurrences(of: "PM", with: "")
+                                        print(dueDater)
+                                    }
+                                    .datePickerStyle(.compact)
                             }
-                            .frame(alignment: .trailing)
-                            
+                            .fixedSize()
+                        } label: {
+                            Text("Due Date Chooser")
+                            Text("Every new objective will start in **\(dueDateSetter)** at **\(datedVar.formatted(date: .omitted, time: .shortened))**")
                         }
-                        
-                        DatePicker("Base Due Date Time ", selection: $datedVar, displayedComponents: [.hourAndMinute])
-                            .onChange(of: datedVar) {
-                                dueDater = datedVar.formatted(date: .omitted, time: .shortened).replacingOccurrences(of: "AM", with: "").replacingOccurrences(of: "PM", with: "")
-                                print(dueDater)
-                            }
-                            .datePickerStyle(.compact)
                         
                         HStack {
                             Text("Assignment Organization Order")
@@ -225,8 +228,8 @@ struct Settinger: View {
                                 }
                                 .frame(width: screenWidth/5)
                         }
-                        HStack {
-                            Stepper("Circle Shape Radius",value: $cornerRadius, in: 1...300, step: 10)
+                        LabeledContent {
+                            Stepper("",value: $cornerRadius, in: 1...300, step: 10)
                                 .padding()
                             Button {
                                 cornerRadius = Int.random(in: 1...300)
@@ -256,6 +259,8 @@ struct Settinger: View {
                                 
                             }
                             
+                        } label : {
+                            Text("Circle Shape Radius")
                         }
                     }
                     
@@ -271,21 +276,31 @@ struct Settinger: View {
                             }
                         }
                         Toggle("Thoughts Text", isOn: $writer)
-                        Toggle("Drawing Pad", isOn: $drawer)
-                        if drawer {
-                            VStack {
+                        LabeledContent {
+                            HStack {
+                                if drawer {      
+                                    HStack {
+                                        Text("1")
+                                        Slider(value: $chosenWidth, in: 1...15, step: 0.5)
+                                        Text("15")
+                                    }
+                                    .padding(.leading)
+                                }
+                                Toggle("", isOn: $drawer)
+                            }
+                            
+                            
+                        } label: {
+                            Text("Drawing Pad")
+                            if drawer {
                                 Text("Draw Line Width: \(chosenWidth, specifier: "%.1f")")
-                                    .font(.headline)
                                 Button("Reset") {
                                     chosenWidth = 5
                                 }
-                                HStack {
-                                    Text("1")
-                                    Slider(value: $chosenWidth, in: 1...15, step: 0.5)
-                                    Text("15")
-                                }
                             }
                         }
+                        
+                        
                         Picker("Alarm Volume" , selection: $alarmLevel) {
                             Text("Base Alarm Level (Low, Wearing Headphones)").tag("myalarm.mp3")
                             Text("Alarm Level (Medium, Working W/O Headphones)").tag("myalarmMedium.mp3")
@@ -297,22 +312,41 @@ struct Settinger: View {
                         
                     }
                     Section("Misc.") {
-                        Toggle("Show Tabs", isOn: $tabStyle) 
-                            .onTapGesture {
-                                if tabStyle == true {
-                                    tabStyle = false 
-                                    pagedStyle = true
-                                } else {
-                                    tabStyle = true 
-                                    pagedStyle = false 
+                        
+                        LabeledContent {
+                            HStack {
+                                if tabStyle {      
+                                    HStack {
+                                        Text("0%")
+                                        Slider(value: $chosenOpacity, in: 0.0...1.0, step: 0.01)
+                                        Text("100%")
+                                    }
+                                    .padding(.leading)
+                                }
+                                Toggle("", isOn: $tabStyle) 
+                                    .onTapGesture {
+                                        if tabStyle == true {
+                                            tabStyle = false 
+                                            pagedStyle = true
+                                        } else {
+                                            tabStyle = true 
+                                            pagedStyle = false 
+                                        }
+                                    }
+                            }
+                        } label: {
+                            Text("Tab Bar")
+                            if tabStyle {
+                                Text("Tab Bar Opacity: \(Int(chosenOpacity * 100))%")
+                                Button("Reset") {
+                                    chosenOpacity = 0.8
                                 }
                             }
+                        }
                         
                         if tabStyle == false {
                             Toggle("Paged Tabs", isOn: $pagedStyle)
                         }
-                        
-                        
                         Button("CLEAR ALL DATA") {
                             clear.toggle()  
                             clearCheck = false 
@@ -352,20 +386,20 @@ struct Settinger: View {
                             // .padding(0)
                             .fixedSize()
                             
-//                            if clearCheck {
-//                                Text("This is all your data :\n\(bigDic)")
-//                            }
+                            //                            if clearCheck {
+                            //                                Text("This is all your data :\n\(bigDic)")
+                            //                            }
                         }
                     }
                     
                     DisclosureGroup("Info") {
-                                Text("Credits : Sharul Shah, Stack Overflow, Medium, Apple Engineers, Apple, Hacking With Swift, Chat-GPT, Friends")
-                                Text("Package Dependencies : Pow, Drops")
-                            }
-                            .font(.footnote)
-                            .foregroundStyle(.blue)
-                            .shadow(color: .gray, radius: 10)
-                 
+                        Text("Credits : Sharul Shah, Stack Overflow, Medium, Apple Engineers, Apple, Hacking With Swift, Chat-GPT, Friends")
+                        Text("Package Dependencies : Pow, Drops")
+                    }
+                    .font(.footnote)
+                    .foregroundStyle(.blue)
+                    .shadow(color: .gray, radius: 10)
+                    
                 }
                 .frame(width: screenWidth/1.3)
                 Spacer()
