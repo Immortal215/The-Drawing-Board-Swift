@@ -5,7 +5,8 @@ struct ContentView: View {
     @AppStorage("selectedTab") var selectedTab = 1
     @AppStorage("tabStyle") var tabStyle = true
     @AppStorage("pagedStyle") var pagedStyle = false
-
+    @AppStorage("chosenOpacity") var chosenOpacity = 0.8
+    
     var body: some View {
         ZStack {
             TabView(selection: $selectedTab) {
@@ -44,8 +45,7 @@ struct ContentView: View {
                         .foregroundStyle(.black)
                         .shadow(color:.gray, radius: 5)
                         .fixedSize(horizontal: false, vertical: true)
-                        .opacity(0.8)
-                        
+                        .opacity(chosenOpacity)
                     HStack {
                        
                             TabBarButton(image: "house.fill", index: 0, labelr: "Home")
