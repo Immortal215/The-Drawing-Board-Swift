@@ -44,6 +44,8 @@ struct ContentView: View {
                         .foregroundStyle(.black)
                         .shadow(color:.gray, radius: 5)
                         .fixedSize(horizontal: false, vertical: true)
+                        .opacity(0.8)
+                        
                     HStack {
                        
                             TabBarButton(image: "house.fill", index: 0, labelr: "Home")
