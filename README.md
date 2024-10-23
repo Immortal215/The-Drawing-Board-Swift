@@ -53,9 +53,10 @@
 
 * **Change organization, timing, count, color, dating, data, and more throughout the app**
 
-## 🎥 App Video (Last Updated Oct 20)
-
-> https://www.canva.com/design/DAGUIYnazmQ/B6qd-sWMUcbexiiaCnhmcQ/watch?utm_content=DAGUIYnazmQ&utm_campaign=designshare&utm_medium=link&utm_source=editor
+## 🎥 App Video 
+> [!WARNING]
+> Really Outdated (Does not have many new features)
+https://www.canva.com/design/DAGUIYnazmQ/B6qd-sWMUcbexiiaCnhmcQ/watch?utm_content=DAGUIYnazmQ&utm_campaign=designshare&utm_medium=link&utm_source=editor
 
 ## 📄 Basic Example Code For Use
 Here's an example snippet of how you might configure a basic timer in SwiftUI:
