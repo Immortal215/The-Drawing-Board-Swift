@@ -18,6 +18,8 @@
 * https://github.com/omaralbeik/Drops.git
 
 ## ✨ Features 
+> [!NOTE]
+> 💾 *All Data saves on the device*
 
 ### [🏠 Home Screen](The%20Drawing%20Board/Homepage.swift)
 <hr>
@@ -44,9 +46,6 @@
 * **Add assignment titles, descriptions, subjects, and change the due date if necessary. (Editable afterward as well)**
 * **Check assignments individually or delete them all at once**
 * **MULTIPLE LISTS! You can create and edit separate planners for organization**
-
-> [!NOTE]
-> 💾 *Data saves on the device*
 
 ### [⚙️ Settings](The%20Drawing%20Board/Settings.swift)
 <hr>
