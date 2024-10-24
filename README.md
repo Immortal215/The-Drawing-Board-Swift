@@ -6,7 +6,8 @@
 
 > [!NOTE]
 > This is the third github as the first with over 250 commits and second with 200 were corrupted twice.
-> 
+> Most of the app was made on IPad Swift Playgrounds.
+
 ## 🚀 Installation 
 
 > [!IMPORTANT]
