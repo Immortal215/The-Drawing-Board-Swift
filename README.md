@@ -55,7 +55,7 @@
 
 ## 🎥 App Video 
 > [!WARNING]
-> Really Outdated (Does not have any packages/ new features )
+> Outdated (Does not have any packages/ new features )
 https://www.canva.com/design/DAGUIYnazmQ/B6qd-sWMUcbexiiaCnhmcQ/watch?utm_content=DAGUIYnazmQ&utm_campaign=designshare&utm_medium=link&utm_source=editor
 
 ## 📄 Basic Example Code For Use
