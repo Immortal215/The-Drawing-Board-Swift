@@ -27,7 +27,7 @@ struct FeatureReportButton: View {
             }
             .foregroundColor(.white)
             .padding(.horizontal, 20)
-            .padding(.vertical, 12)
+            .padding(.vertical, 18)
             .background(
                 LinearGradient(
                     gradient: Gradient(colors: [Color.blue, Color.blue.opacity(0.8)]),
@@ -130,3 +130,60 @@ struct MailContent {
     let recipients: [String]
     let message: String
 }
+
+struct GitHubButton: View {
+    @Environment(\.openURL) var openURL
+    @State private var isPressed = false
+    
+    let githubURL = URL(string: "https://github.com/Immortal215")!
+    
+    var body: some View {
+        Button(action: {
+            openURL(githubURL)
+        }) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                HStack {
+                    Text("Github")
+                        .foregroundStyle(.white)
+                        .bold()
+                    Image(systemName: "link.circle.fill")
+                        .font(.system(size: 30))
+                        .foregroundColor(.white)
+                        .frame(width: 50, height: 50)
+                        .background(
+                            Circle()
+                                .fill(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [
+                                            Color(hex: "24292E"),
+                                            Color(hex: "1B1F23")
+                                        ]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                )
+                        )
+                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+                        .scaleEffect(isPressed ? 0.95 : 1.0)
+                        .animation(.spring(response: 0.2, dampingFraction: 0.6), value: isPressed)
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 3)
+            }
+            .fixedSize()
+        }
+        .simultaneousGesture(
+            DragGesture(minimumDistance: 0)
+                .onChanged { _ in
+                    isPressed = true
+                }
+                .onEnded { _ in
+                    isPressed = false
+                }
+        )
+        .buttonStyle(PlainButtonStyle())
+    }
+}
+
+
