@@ -15,11 +15,11 @@
 
   Add the following dependencies through XCode or Playgrounds package installer :
 
-```dependency
+```link
 https://github.com/EmergeTools/Pow.git
 ```
 
-```dependency
+```link
 https://github.com/omaralbeik/Drops.git
 ```
 
