@@ -239,45 +239,41 @@ struct Homepage: View {
                         if loadedData && bigDic[currentTab]?["description"]?.isEmpty != true && caughtUp == false && infoArray.count != 0 {
                             
                             ScrollView {
-                                
                                 ForEach(0..<(urgentCount != 0 ? min(urgentCount, infoArray.count) : infoArray.count), id: \.self) { index in
                                     Spacer()
                                     
                                     ZStack {
                                         
                                         RoundedRectangle(cornerRadius: 15)
-                                            .foregroundColor(.black)
+                                            .foregroundStyle(.black)  
                                             .overlay(
                                                 RoundedRectangle(cornerRadius: 15)
                                                     .stroke(.white, lineWidth: 3)
                                                     .frame(width: screenWidth/2.1)
-                                                
                                             )
-                                            .shadow(radius: 5)
+                                            .shadow(color: .white.opacity(0.2), radius: 8, x: 0, y: 4)   
                                             .frame(width: screenWidth/2.1)
                                         
                                         VStack {
                                             HStack {
-                                                
                                                 Text("")
                                                     .overlay(
                                                         Image(systemName: selectDelete[index] ? "checkmark.circle.fill" : "checkmark")
                                                             .resizable()
                                                             .frame(width: deleted ? 0 : 75, height: deleted ? 0 : 75, alignment: .center)
                                                             .scaleEffect(selectDelete[index] ? 1.0 : 0.5)
-                                                            .foregroundStyle(selectDelete[index] ? .red : .blue)
-                                                        
+                                                            .foregroundStyle(selectDelete[index] ? 
+                                                                .red.opacity(0.9) :  
+                                                                .blue.opacity(0.85)) 
+                                                            .blur(radius: 0.5)       
                                                     )
                                                     .frame(width:0, height:0)
                                                     .animation(.snappy(extraBounce: 0.4))
-                                                
-                                                // only works on mac
                                                     .onHover { hovering in
                                                         if hovering {
                                                             selectDelete[index] = true
                                                         } else {
                                                             selectDelete = Array(repeating: false, count: infoArray.count)
-                                                            
                                                         }
                                                     }
                                                     .offset(x: -50)
@@ -309,126 +305,93 @@ struct Homepage: View {
                                                         }
                                                     }
                                                 
-                                                
-                                                
-                                                //  Divider()
-                                                
                                                 VStack {
                                                     let gradientTitle = LinearGradient(stops: [
-                                                        .init(color: Color(hex: subjectColor), location: 0.0),
-                                                        .init(color: Color(hex: titleColor), location: 0.5),
-                                                        .init(color: Color(hex: descriptionColor), location: 1.0),
-                                                        // .init(color: .clear, location: 1.0),
-                                                    ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                                    let gradientSubject = LinearGradient(stops: [
-                                                        .init(color: Color(hex: titleColor), location: 0.0),
-                                                        .init(color: Color(hex: subjectColor), location: 0.5),
-                                                        .init(color: Color(hex: descriptionColor), location: 1.0),
-                                                    ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                                    let gradientDescription = LinearGradient(stops: [
-                                                        .init(color: Color(hex: subjectColor), location: 0.0),
-                                                        .init(color: Color(hex: descriptionColor), location: 0.5),
-                                                        .init(color: Color(hex: titleColor), location: 1.0),
+                                                        .init(color: Color(hex: subjectColor).opacity(0.95), location: 0.0),
+                                                        .init(color: Color(hex: titleColor).opacity(0.95), location: 0.5),
+                                                        .init(color: Color(hex: descriptionColor).opacity(0.95), location: 1.0),
                                                     ], startPoint: .topLeading, endPoint: .bottomTrailing)
                                                     
-                                                    //  Spacer()
+                                                    let gradientSubject = LinearGradient(stops: [
+                                                        .init(color: Color(hex: titleColor).opacity(0.95), location: 0.0),
+                                                        .init(color: Color(hex: subjectColor).opacity(0.95), location: 0.5),
+                                                        .init(color: Color(hex: descriptionColor).opacity(0.95), location: 1.0),
+                                                    ], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                                    
+                                                    let gradientDescription = LinearGradient(stops: [
+                                                        .init(color: Color(hex: subjectColor).opacity(0.95), location: 0.0),
+                                                        .init(color: Color(hex: descriptionColor).opacity(0.95), location: 0.5),
+                                                        .init(color: Color(hex: titleColor).opacity(0.95), location: 1.0),
+                                                    ], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                                    
                                                     HStack {
-                                                        // Spacer(minLength: 0)
                                                         Text(names[index].trimmingCharacters(in: .whitespacesAndNewlines))
                                                             .foregroundStyle(Color(hex: titleColor))
-                                                        
-                                                        //.padding()
-                                                        //                                                            .background {
-                                                        //                                                                Capsule()
-                                                        //                                                                    .stroke(gradientTitle, lineWidth: 2)
-                                                        //                                                                    .saturation(1.8)
-                                                        //                                                            }
-                                                            .font(.title2)
+                                                            .shadow(color: .white.opacity(0.3), radius: 2, x: 0, y: 1)  
+                                                            .font(.title2.bold())  
                                                             .frame(maxWidth: subjects[index] != " " ? screenWidth/6 : screenWidth/4, maxHeight: 100)
                                                         
-                                                        
                                                         if subjects[index] != " " {
-                                                            //  Spacer(minLength: 0)
-                                                            
                                                             Divider()
+                                                                .frame(height: 30)  
+                                                                .opacity(0.7)      
                                                             
                                                             Text(subjects[index].trimmingCharacters(in: .whitespacesAndNewlines))
                                                                 .foregroundStyle(Color(hex: subjectColor))
-                                                            // .padding()
-                                                            //                                                                .background {
-                                                            //                                                                    Capsule()
-                                                            //                                                                        .stroke(gradientSubject, lineWidth: 2)
-                                                            //                                                                    // .saturation()
-                                                            //                                                                }
+                                                                .shadow(color: .white.opacity(0.3), radius: 2, x: 0, y: 1)  
                                                                 .font(.title2)
                                                                 .frame(maxWidth: screenWidth/6, maxHeight: 100)
-                                                            
-                                                            
                                                         }
-                                                        
                                                     }
+                                                    
                                                     if infoArray[index] != " " {
                                                         Divider()
                                                             .frame(maxWidth: screenWidth/4)
+                                                            .opacity(0.7)  
                                                     }
+                                                    
                                                     VStack {
                                                         if infoArray[index] != " " {
                                                             ScrollView { 
                                                                 Text(infoArray[index].trimmingCharacters(in: .whitespacesAndNewlines))
                                                                     .foregroundStyle(Color(hex: descriptionColor))
+                                                                    .shadow(color: .white.opacity(0.2), radius: 1, x: 0, y: 1)  
                                                                     .font(.title2)
-                                                                //.multilineTextAlignment(.leading)
                                                                     .frame(alignment: .leading)
-                                                                
-                                                                //                                                                .background {
-                                                                //                                                                    Capsule()
-                                                                //                                                                        .stroke(gradientDescription, lineWidth: 2)
-                                                                //                                                                        .saturation(1.8)
-                                                                //                                                                }
-                                                                
                                                             }
-                                                            
                                                             .frame(maxWidth: screenWidth/3, maxHeight: screenHeight/8)
                                                             .fixedSize(horizontal: false, vertical: true)
-                                                            
-                                                            
                                                         }
+                                                        
                                                         Divider()
                                                             .frame(maxWidth: screenWidth/3)
-                                                        
-                                                        
+                                                            .opacity(0.7) 
                                                         
                                                         Text("Due : \(dateFormatClean(str: dueDates[index]))")
+                                                            .shadow(color: .white.opacity(0.2), radius: 1, x: 0, y: 1)  
                                                             .fixedSize()
-                                                        
-                                                        //    Spacer()
                                                     }
                                                 }
                                             }
-                                            
                                         }
                                         .foregroundStyle(foregroundStyler(dueDate: dueDates[index], assignment: names[index]))
                                         .onChange(of: dueDates[index]) {
-                                            
                                             Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
                                                 if dueDates.count < index {
-                                                    foregroundStyle = foregroundStyler(dueDate: dueDates[index], assignment: names[index] )
+                                                    foregroundStyle = foregroundStyler(dueDate: dueDates[index], assignment: names[index])
                                                 }
                                             }
-                                            styleNotification(dueDate: dueDates[index], assignment: names[index], alarm: alarmLevel)
+                                            styleNotification(dueDate: dueDates[index], assignment: names[index], description: infoArray[index], alarm: alarmLevel)
                                         }
                                         .offset(x: 25)
                                         .frame(width: screenWidth/2)
                                         .padding(10)
-                                        
                                     }
                                     .padding(7.5)
                                     .strikethrough(selectDelete[index])
                                 }
                             }
-                            // .animation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 1.0))
                             .animation(.bouncy(duration: 1))
-                            
                         }
                         Spacer()
                     }
@@ -1004,21 +967,21 @@ func foregroundStyler(dueDate: Date, assignment: String) -> Color {
     }
 }
 
-func styleNotification(dueDate: Date, assignment: String, alarm: String) {
+func styleNotification(dueDate: Date, assignment: String, description: String, alarm: String) {
     var number = 0
     
     Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
         if dueDate < Date().addingTimeInterval(86400) {
             if dueDate < Date().addingTimeInterval(3600) && number == 1 {
-                scheduleTimeBasedNotification(title: "\(assignment) is due in less than one hour!", body: "", sound: UNNotificationSound(named: UNNotificationSoundName(rawValue: alarm)))
+                scheduleTimeBasedNotification(title: "\(assignment) is due in less than one hour!", body: "\(description)", sound: UNNotificationSound(named: UNNotificationSoundName(rawValue: alarm)))
                 number += 1
                 if dueDate <= Date() && number == 2 {
-                    scheduleTimeBasedNotification(title: "\(assignment) is due now!", body: "", sound: UNNotificationSound(named: UNNotificationSoundName(rawValue: alarm)))
+                    scheduleTimeBasedNotification(title: "\(assignment) is due now!", body: "\(description)", sound: UNNotificationSound(named: UNNotificationSoundName(rawValue: alarm)))
                     number += 1
                 }
                 
             } else if number == 0 {
-                scheduleTimeBasedNotification(title: "\(assignment) is due in less than one day!", body: "", sound: UNNotificationSound.defaultCritical)
+                scheduleTimeBasedNotification(title: "\(assignment) is due in less than one day!", body: "\(description)", sound: UNNotificationSound.defaultCritical)
                 number += 1
             }
         }
