@@ -410,6 +410,7 @@ struct Settinger: View {
                     .foregroundStyle(.blue)
                     .shadow(color: .gray, radius: 10)
                     LabeledContent {
+                        GitHubButton()
                         FeatureReportButton()    
                     } label: {
                         Text("Contact")
