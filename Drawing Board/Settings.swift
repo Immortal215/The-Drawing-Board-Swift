@@ -58,6 +58,8 @@ struct Settinger: View {
                 Text("Settings")
                     .fontWeight(.semibold)
                     .font(.title)
+                
+                
                 Form {
                     //planner
                     Section("Planner") {
@@ -86,14 +88,22 @@ struct Settinger: View {
                             Text("Assignment Organization Order")
                             
                             
-                            Picker("" , selection: $organizedAssignments) {
+                            Picker("", selection: $organizedAssignments) {
                                 ForEach(organizationOptions, id: \.self) { i in
                                     Text(i).tag(i)
                                 }
                             }
                         }
-                        Toggle("Description Clear Button", isOn: $emptyClear)
-                        Toggle("Subjects Picker", isOn: $subjectPicker)
+                        Toggle(isOn: $emptyClear) {
+                            Text("Description Clear Button")
+                            Text("A button to clear all spaces in your description")
+                        }
+                        
+                        Toggle(isOn: $subjectPicker) {
+                            Text("Subject Picker")
+                            Text("A picker that allows you to choose from all subjects")
+                        }
+                        
                         DisclosureGroup("Planner Color Modifications") {
                             HStack {
                                 
@@ -399,11 +409,19 @@ struct Settinger: View {
                     .font(.footnote)
                     .foregroundStyle(.blue)
                     .shadow(color: .gray, radius: 10)
+                    LabeledContent {
+                        FeatureReportButton()    
+                    } label: {
+                        Text("Contact")
+                        Text("Always open to questions!")
+                    }
                     
                 }
                 .frame(width: screenWidth/1.3)
+                
+                
                 Spacer()
-                    .frame(height: 50)
+                    .frame(height: 100)
             }
         }
         .onAppear {
