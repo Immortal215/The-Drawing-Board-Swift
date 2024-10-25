@@ -1,4 +1,4 @@
-# 📱 Made using SwiftUI
+# Made using SwiftUI 💻📱
 ### An app built to add structure into our lives, keeping focus at the forefront.
 
 > [!WARNING]
