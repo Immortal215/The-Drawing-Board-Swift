@@ -153,8 +153,8 @@ struct Homepage: View {
             
             VStack {
                 Text("Home")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
+                    .font(.title)
+                    .fontWeight(.semibold)
                 
                 HStack {
                     // planner
