@@ -6,7 +6,8 @@
 
 > [!NOTE]
 > This is the third github as the first with over 250 commits and second with 200 were corrupted.
-> Most of the app was made on iPad Swift Playgrounds.
+> Most of the app is built on iPad Swift Playgrounds.
+> I am constantly updating this app to better assist personal learning
 
 ## 🚀 Installation 
 
