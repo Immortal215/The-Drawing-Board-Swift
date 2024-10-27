@@ -5,8 +5,8 @@
 > ⚠️ *Built and optimized primarily for iPad Gen 10 but does work on Mac's well enough*
 
 > [!NOTE]
-> This is the third github as the first with over 250 commits and second with 200 were corrupted.
-> Most of the app is built on iPad Swift Playgrounds.
+> This is the third github as the first with over 250 commits and second with 200 were corrupted.<br>
+> Most of the app is built on iPad Swift Playgrounds.<br>
 > I am constantly updating this app to better assist personal learning
 
 ## 🚀 Installation 
