@@ -112,8 +112,8 @@ struct Pomo: View {
                     Spacer()
                     VStack {
                         Text("StopWatch")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
+                            .font(.title)
+                            .fontWeight(.semibold)
                         Spacer()
                         if progressTime != 0 {
                             Button("Reset") {
@@ -174,8 +174,8 @@ struct Pomo: View {
                     Spacer()
                     VStack {
                         Text("Pomodoro Timer")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
+                            .font(.title)
+                            .fontWeight(.semibold)
                         
                         Spacer(minLength: 50)
                         
