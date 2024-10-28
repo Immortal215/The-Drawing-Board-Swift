@@ -406,7 +406,6 @@ struct Settinger: View {
                         Text("Credits : Sharul Shah, Stack Overflow, Medium, Apple Engineers, Apple, Hacking With Swift, Chat-GPT, Friends")
                         Text("Package Dependencies : Pow, Drops")
                     }
-                    .font(.footnote)
                     .foregroundStyle(.blue)
                     .shadow(color: .gray, radius: 10)
                     LabeledContent {
