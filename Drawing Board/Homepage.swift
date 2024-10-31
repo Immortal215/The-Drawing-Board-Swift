@@ -265,10 +265,10 @@ struct Homepage: View {
                                                             .foregroundStyle(selectDelete[index] ? 
                                                                 .red.opacity(0.9) :  
                                                                 .blue.opacity(0.85)) 
-                                                            .blur(radius: 0.5)       
+                                                            .blur(radius: 0.5)    
                                                     )
                                                     .frame(width:0, height:0)
-                                                    .animation(.snappy(extraBounce: 0.4))
+                                                    .animation(.snappy())
                                                     .onHover { hovering in
                                                         if hovering {
                                                             selectDelete[index] = true
