@@ -361,7 +361,7 @@ struct Notebook: View {
                                                 .scaleEffect(selectDelete[index] ? 1.0 : 0.5)
                                                 .foregroundStyle(selectDelete[index] ? .red : .blue)
                                             
-                                                .animation(.snappy(extraBounce: 0.4))
+                                                .animation(.snappy())
                                             // only works on mac
                                                 .onHover { hovering in
                                                     if hovering {
