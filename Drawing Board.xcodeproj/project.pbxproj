@@ -15,9 +15,22 @@
 		71AED9ED2CC85013007411AE /* Drawing Board.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drawing Board.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7151F4E92CF24D83008887F8 /* Exceptions for "Drawing Board" folder in "Drawing Board" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Drawing-Board-Info.plist",
+			);
+			target = 7192B9172CB3001500504B8B /* Drawing Board */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7192B91A2CB3001500504B8B /* Drawing Board */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				7151F4E92CF24D83008887F8 /* Exceptions for "Drawing Board" folder in "Drawing Board" target */,
+			);
 			path = "Drawing Board";
 			sourceTree = "<group>";
 		};
@@ -260,6 +273,7 @@
 				DEVELOPMENT_TEAM = 9SP33R5K89;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Drawing-Board-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -289,6 +303,7 @@
 				DEVELOPMENT_TEAM = 9SP33R5K89;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Drawing-Board-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
