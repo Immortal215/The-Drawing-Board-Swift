@@ -86,7 +86,6 @@ struct FeatureReportButton: View {
     }
 }
 
-// Mail View Representative
 struct MailView: UIViewControllerRepresentable {
     @Binding var isShowing: Bool
     let result: (Result<MFMailComposeResult, Error>) -> Void
@@ -147,27 +146,41 @@ struct GitHubButton: View {
                     Text("Github")
                         .foregroundStyle(.white)
                         .bold()
-                    Image(systemName: "link.circle.fill")
-                        .font(.system(size: 30))
-                        .foregroundColor(.white)
-                        .frame(width: 50, height: 50)
-                        .background(
-                            Circle()
-                                .fill(
-                                    LinearGradient(
-                                        gradient: Gradient(colors: [
-                                            Color(hex: "24292E"),
-                                            Color(hex: "1B1F23")
-                                        ]),
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
+                    AsyncImage(url: URL(string: "https://cdn.pixabay.com/photo/2022/01/30/13/33/github-6980894_1280.png")!, content: { image in 
+                        image
+                        
+                            .resizable()
+                            .scaledToFit() 
+                            .frame(width: 50, height: 50)
+                            .clipped() 
+                            .clipShape(Circle())
+                            
+                            
+                    }, placeholder: {
+                        Image(systemName: "link.circle.fill")
+                            .font(.system(size: 30))
+                            .foregroundColor(.white)
+                            .frame(width: 50, height: 50)
+                    })
+                    .background(
+                        Circle()
+                            .fill(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [
+                                        Color(hex: "24292E"),
+                                        Color(hex: "1B1F23")
+                                    ]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
                                 )
-                        )
-                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
-                        .scaleEffect(isPressed ? 0.95 : 1.0)
-                        .animation(.spring(response: 0.2, dampingFraction: 0.6), value: isPressed)
+                            )
+                    )
+                        
                 }
+           
+                .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+                .scaleEffect(isPressed ? 0.95 : 1.0)
+                .animation(.spring(response: 0.2, dampingFraction: 0.6), value: isPressed)
                 .padding(.horizontal)
                 .padding(.vertical, 3)
             }
