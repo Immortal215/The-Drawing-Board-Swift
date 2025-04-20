@@ -1,6 +1,6 @@
 import SwiftUI
 import Pow
-
+import Drops
 struct Homepage: View {
     @State var screenWidth = UIScreen.main.bounds.width
     @State var screenHeight = UIScreen.main.bounds.height
@@ -389,7 +389,11 @@ struct Homepage: View {
                                     }
                                     .padding(7.5)
                                     .strikethrough(selectDelete[index])
+                                    .opacity(selectDelete[index] ? 0.7 : 1.0)
+                                    .saturation(selectDelete[index] ? 0.7 : 1.0)
                                 }
+                                
+
                             }
                             .animation(.bouncy(duration: 1))
                         }
@@ -668,7 +672,7 @@ struct Homepage: View {
                                             
                                             ZStack {
                                                 
-                                                if lines.isEmpty {
+                                                if currentLine.points.isEmpty && lines.isEmpty {
                                                     Text("Draw Ideas While Working!")
                                                         .foregroundColor(.gray)
                                                         .font(.title3)
@@ -877,7 +881,7 @@ struct Homepage: View {
         }
         
         .onChange(of: currentTab) {
-            
+            Drops.hideAll()
             if currentTab != "+erder" {
                 retrieveBigDic = UserDefaults.standard.dictionary(forKey: "DicKey") as? [String: [String: [String]]] ?? [:]
                 retrieveDueDic = UserDefaults.standard.dictionary(forKey: "DueDicKey") as? [String : [Date]] ?? [:]
