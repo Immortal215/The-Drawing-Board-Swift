@@ -20,7 +20,7 @@ struct ContentView: View {
                     .tabItem { 
                         Image(systemName: "text.book.closed.fill")
                     }
-                    .tag(1)
+                    .tag(1) 
                 
                 Pomo()
                     .tabItem { 
@@ -35,7 +35,6 @@ struct ContentView: View {
                     .tag(3)
             }
             .tabViewStyle(.page(indexDisplayMode: pagedStyle ? .always : .never))
-            
             VStack {
                 Spacer()
                 ZStack {
@@ -43,7 +42,7 @@ struct ContentView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .frame(height: 60)
                         .foregroundStyle(.black)
-                        .shadow(color:.gray, radius: 5)
+                        .shadow(color: .blue, radius: 5)
                         .fixedSize(horizontal: false, vertical: true)
                         .opacity(chosenOpacity)
                     HStack {
@@ -60,8 +59,9 @@ struct ContentView: View {
                     }
                 }
                 .padding()
-                
+              
             }
+              .ignoresSafeArea(.keyboard)
         }
         .preferredColorScheme(.dark)
     }
