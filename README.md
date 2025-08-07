@@ -7,8 +7,8 @@
 > [!NOTE]
 > This is the third github as the first with over 250 commits and second with 200 were corrupted.<br>
 > Most of the app was built on iPad Swift Playgrounds.<br>
-> I am constantly updating this app on my personal copy to better assist personal learning
-> This Github is outdated. 
+> I am constantly updating this app on my personal copy to better assist my own learning
+> i.e This Github is outdated. 
 
 ## 🚀 Installation 
 
